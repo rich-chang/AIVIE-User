@@ -50,8 +50,27 @@ class SignaturePresenter implements SignatureContract.signatureAction {
 
         signatureRepository.SaveImgToFirebase(mSignaturePad, new SignatureContract.uploadToFireStorageCallback() {
             @Override
-            public void onSuccess(String downloadUri) {
-                goToIcfActivity(downloadUri);
+            public void onSuccess(final String downloadUri) {
+
+                signatureRepository.updateIcfFlagInUserProfile(true, new SignatureContract.updateSignedFlagCallback() {
+                    @Override
+                    public void onSuccess() {
+                        goToIcfActivity(downloadUri);
+                    }
+
+                    @Override
+                    public void onFailure(String result) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        signatureView.ToastLoginResultMsg("Signature saved.");
+                        signatureView.enablePad();
+                        signatureView.enableBtnClear();
+                        signatureView.enableBtnConfirm();
+                        signatureView.hideProgressDialog();
+                    }
+                });
             }
 
             @Override
@@ -60,11 +79,6 @@ class SignaturePresenter implements SignatureContract.signatureAction {
 
             @Override
             public void onComplete() {
-                signatureView.ToastLoginResultMsg("Signature saved.");
-                signatureView.enablePad();
-                signatureView.enableBtnClear();
-                signatureView.enableBtnConfirm();
-                signatureView.hideProgressDialog();
             }
         });
     }

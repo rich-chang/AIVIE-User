@@ -39,11 +39,22 @@ public interface SignatureContract {
     }
 
     interface uploadToFireStorageCallback {
+
         void onSuccess(String downloadUri);
 
         void onFailure(String result);
 
         void onComplete();
+    }
+
+    interface updateSignedFlagCallback {
+
+        void onSuccess();
+
+        void onFailure(String result);
+
+        void onComplete();
+
     }
 
 }
