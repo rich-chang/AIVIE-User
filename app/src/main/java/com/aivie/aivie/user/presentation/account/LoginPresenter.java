@@ -25,12 +25,13 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     private void InitActivityView() {
         loginView.setContentView();
         loginView.showSpString();
+        loginView.hideProgressDialog();
     }
 
     @Override
     public void clickLogin(String username, String password) {
 
-        loginView.showProgress();
+        loginView.showProgressDialog("Logging in ... Please wait");
         loginView.disableLoginBtn();
         loginView.disableNeedAccount();
 
@@ -74,7 +75,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                             @Override
                                                             public void onSuccess() {
 
-                                                                loginView.hideProgress();
+                                                                loginView.hideProgressDialog();
                                                                 loginView.enableLoginBtn();
                                                                 loginView.enableNeedAccount();
 
@@ -110,7 +111,6 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     private void goToSignICF() {
         Intent intent = new Intent((Context) loginView, IcfActivity.class);
-        //intent.putExtra("UserID", loginRepository.getUserId());
         ((Context) loginView).startActivity(intent);
     }
 

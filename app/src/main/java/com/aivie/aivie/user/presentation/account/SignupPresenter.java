@@ -28,7 +28,7 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
     @Override
     public void clickSignup(String username, String password) {
 
-        signupView.showProgress();
+        signupView.showProgressDialog("Signing up ... Please wait");
         signupView.disableSignupBtn();
         signupView.disableHaveAccount();
 
@@ -43,7 +43,7 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
             @Override
             public void onFailure(String resultMsg) {
                 signupView.ToastLoginResultMsg(resultMsg);
-                signupView.hideProgress();
+                signupView.hideProgressDialog();
                 signupView.enableSignupBtn();
                 signupView.enableHaveAccount();
             }
@@ -65,7 +65,7 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
 
                     @Override
                     public void onComplete() {
-                        signupView.hideProgress();
+                        signupView.hideProgressDialog();
                         signupView.enableSignupBtn();
                         signupView.enableHaveAccount();
                     }

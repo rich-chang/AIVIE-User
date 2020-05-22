@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.LoginView {
 
@@ -70,13 +71,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void showProgress() {
-        findViewById(R.id.progressBarLogin).setVisibility(View.VISIBLE);
+    public void showProgressDialog(String message) {
+        ProgressDialogUtil.showProgressDialog(this, message);
     }
 
     @Override
-    public void hideProgress() {
-        findViewById(R.id.progressBarLogin).setVisibility(View.GONE);
+    public void hideProgressDialog() {
+        ProgressDialogUtil.dismiss();
     }
 
     @Override

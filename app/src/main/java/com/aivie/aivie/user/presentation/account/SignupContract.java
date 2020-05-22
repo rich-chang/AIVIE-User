@@ -10,9 +10,9 @@ public interface SignupContract {
 
         void ToastLoginResultMsg(String msg);
 
-        void showProgress();
+        void showProgressDialog(String message);
 
-        void hideProgress();
+        void hideProgressDialog();
 
         void enableSignupBtn();
 

@@ -12,9 +12,9 @@ public interface LoginContract {
 
         void ToastLoginResultMsg(String msg);
 
-        void showProgress();
+        void showProgressDialog(String message);
 
-        void hideProgress();
+        void hideProgressDialog();
 
         void enableLoginBtn();
 

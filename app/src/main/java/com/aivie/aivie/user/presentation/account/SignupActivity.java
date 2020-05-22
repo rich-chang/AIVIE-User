@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 
 public class SignupActivity extends AppCompatActivity implements SignupContract.SignupView {
 
@@ -79,13 +80,13 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
     }
 
     @Override
-    public void showProgress() {
-        findViewById(R.id.progressBarSignup).setVisibility(View.VISIBLE);
+    public void showProgressDialog(String message) {
+        ProgressDialogUtil.showProgressDialog(this, message);
     }
 
     @Override
-    public void hideProgress() {
-        findViewById(R.id.progressBarSignup).setVisibility(View.GONE);
+    public void hideProgressDialog() {
+        ProgressDialogUtil.dismiss();
     }
 
     @Override
