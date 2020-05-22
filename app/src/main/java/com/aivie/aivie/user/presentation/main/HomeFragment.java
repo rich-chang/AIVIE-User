@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
 
-public class TodayFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_today, container, false);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         return root;
     }

@@ -4,13 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.aivie.aivie.user.R;
-import com.aivie.aivie.user.presentation.account.LoginActivity;
-import com.aivie.aivie.user.presentation.icf.IcfActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -26,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFrag = null;
 
                     switch (item.getItemId()) {
-                        case R.id.navigation_today:
-                            selectedFrag = new TodayFragment();
+                        case R.id.navigation_home:
+                            selectedFrag = new HomeFragment();
                             break;
                         case R.id.navigation_progress:
                             selectedFrag = new ProgressFragment();
@@ -60,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TodayFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 }
