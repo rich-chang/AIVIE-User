@@ -80,7 +80,10 @@ class SignatureRepository {
 
                         if (task.isSuccessful()) {
                             uploadToFireStorageCallback.onSuccess(task.getResult().toString());
+                        } else {
+                            uploadToFireStorageCallback.onFailure(task.getException().toString());
                         }
+                        uploadToFireStorageCallback.onComplete();
                     }
                 });
 
@@ -89,7 +92,6 @@ class SignatureRepository {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 Log.i(Constant.TAG, "uploadTask.addOnCompleteListener");
-                uploadToFireStorageCallback.onComplete();
             }
         });
     }
