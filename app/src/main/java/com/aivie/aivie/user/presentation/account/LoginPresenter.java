@@ -3,9 +3,13 @@ package com.aivie.aivie.user.presentation.account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 
+import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.aivie.aivie.user.presentation.icf.IcfActivity;
+import com.aivie.aivie.user.presentation.main.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class LoginPresenter implements LoginContract.LoginUserActions {
@@ -26,6 +30,15 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
         loginView.setContentView();
         loginView.showSpString();
         loginView.hideProgressDialog();
+    }
+
+    @Override
+    public void checkIfLogin() {
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Log.i(Constant.TAG, FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString());
+            goToUserHome();
+        }
     }
 
     @Override
@@ -115,14 +128,9 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     }
 
     private void goToUserHome() {
-        //Intent intent = new Intent((Context) loginView, HomeUserActivity.class);
-        //intent.putExtra("UserProfileDetail", (Parcelable) userProfileDetail);
-        //((Context) loginView).startActivity(intent);
-    }
-
-    private void goToAdmHome() {
-        //Intent intent = new Intent((Context) loginView, HomeAdmActivity.class);
-        //((Context) loginView).startActivity(intent);
+        Intent intent = new Intent((Context) loginView, MainActivity.class);
+        intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) userProfileDetail);
+        ((Context) loginView).startActivity(intent);
     }
 
     private void initUserProfileDetail() {

@@ -53,6 +53,10 @@ public class IcfActivity extends AppCompatActivity implements IcfContract.IcfVie
         });
     }
 
+    public void clickConfirm(View view) {
+        icfPresenter.clickConfirm();
+    }
+
     @Override
     public void disableSignature() {
         findViewById(R.id.imageViewSignature).setEnabled(false);

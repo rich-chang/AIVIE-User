@@ -4,18 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.presentation.account.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private MainPresenter mainPresenter;
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -25,15 +29,19 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.navigation_home:
                             selectedFrag = new HomeFragment();
+                            getSupportActionBar().setTitle("Home");
                             break;
                         case R.id.navigation_progress:
                             selectedFrag = new ProgressFragment();
+                            getSupportActionBar().setTitle("Progress");
                             break;
                         case R.id.navigation_team:
                             selectedFrag = new TeamFragment();
+                            getSupportActionBar().setTitle("Team");
                             break;
                         case R.id.navigation_therapy:
                             selectedFrag = new TherapyFragment();
+                            getSupportActionBar().setTitle("MyTherapy");
                             break;
                     }
 
@@ -52,11 +60,18 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-        //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        //startActivity(intent);
+        mainPresenter = new MainPresenter(this);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+
+            mainPresenter.goToLoginView();
+        } else {
+
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            getSupportActionBar().setTitle("Home");
+        }
     }
 }

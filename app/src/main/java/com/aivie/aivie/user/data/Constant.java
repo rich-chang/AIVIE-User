@@ -8,6 +8,8 @@ public interface Constant {
     boolean DEBUG = BuildConfig.DEBUG;
     String TAG = "richc";
 
+    String USER_PROFILE_DETAIL = "UserProfileDetail";
+
     String SIGNATURE_URI = "SignatureUri";
     String SIGNATURE_SIGNED = "SignatureSigned";
 

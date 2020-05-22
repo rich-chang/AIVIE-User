@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         super.onCreate(savedInstanceState);
 
         loginPresenter = new LoginPresenter(this, new LoginRepository());
+        loginPresenter.checkIfLogin();
     }
 
     private EditText getUsernameViewById() {

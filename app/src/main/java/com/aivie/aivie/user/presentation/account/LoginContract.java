@@ -27,6 +27,8 @@ public interface LoginContract {
 
     interface LoginUserActions {
 
+        void checkIfLogin();
+
         void clickLogin(String username, String password);
 
         void clickGoToSignup();
