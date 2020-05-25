@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.aivie.aivie.user.presentation.account.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -72,6 +75,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             getSupportActionBar().setTitle("Home");
+
+            getBundleData();
         }
+    }
+
+    void getBundleData() {
+        UserProfileDetail userProfileDetail = (UserProfileDetail) getIntent().getParcelableExtra("UserProfileDetail");
     }
 }
