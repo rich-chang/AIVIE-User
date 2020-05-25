@@ -100,4 +100,9 @@ public class IcfActivity extends AppCompatActivity implements IcfContract.IcfVie
     public void setCheckAgreement(boolean checked) {
         ((CheckBox) findViewById(R.id.checkBoxAgreement)).setChecked(checked);
     }
+
+    @Override
+    public void onBackPressed() {
+        //moveTaskToBack(true); // disable going back to the MainActivity
+    }
 }
