@@ -2,9 +2,12 @@ package com.aivie.aivie.user.presentation.icf;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 
 import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.github.gcacace.signaturepad.views.SignaturePad;
+import com.google.firebase.firestore.auth.User;
 
 class SignaturePresenter implements SignatureContract.signatureAction {
 
@@ -40,7 +43,7 @@ class SignaturePresenter implements SignatureContract.signatureAction {
     }
 
     @Override
-    public void clickConfirm(SignaturePad mSignaturePad) {
+    public void clickConfirm(SignaturePad mSignaturePad, final UserProfileDetail userProfileDetail) {
 
         signatureView.disablePad();
         signatureView.disableBtnClear();
@@ -55,7 +58,7 @@ class SignaturePresenter implements SignatureContract.signatureAction {
                 signatureRepository.updateIcfFlagInUserProfile(true, new SignatureContract.updateSignedFlagCallback() {
                     @Override
                     public void onSuccess() {
-                        goToIcfActivity(downloadUri);
+                        goToIcfActivity(downloadUri, userProfileDetail);
                     }
 
                     @Override
@@ -83,10 +86,18 @@ class SignaturePresenter implements SignatureContract.signatureAction {
         });
     }
 
-    private void goToIcfActivity(String downloadUri) {
+    private UserProfileDetail updateFlagInUserProfile(UserProfileDetail userProfileDetail) {
+        userProfileDetail.updateIcfSigned(true);
+        return userProfileDetail;
+    }
+
+    private void goToIcfActivity(String downloadUri, UserProfileDetail userProfileDetail) {
         Intent intent = new Intent((Context) signatureView, IcfActivity.class);
         intent.putExtra(Constant.SIGNATURE_URI, downloadUri);
         intent.putExtra(Constant.SIGNATURE_SIGNED, true);
+        if (userProfileDetail != null) {
+            intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) updateFlagInUserProfile(userProfileDetail));
+        }
         ((Context) signatureView).startActivity(intent);
 
         signatureView.finishView();

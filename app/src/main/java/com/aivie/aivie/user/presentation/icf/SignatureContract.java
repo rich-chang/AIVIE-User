@@ -1,5 +1,6 @@
 package com.aivie.aivie.user.presentation.icf;
 
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 public interface SignatureContract {
@@ -35,7 +36,7 @@ public interface SignatureContract {
 
         void clickClear(SignaturePad mSignaturePad);
 
-        void clickConfirm(SignaturePad mSignaturePad);
+        void clickConfirm(SignaturePad mSignaturePad, UserProfileDetail userProfileDetail);
     }
 
     interface uploadToFireStorageCallback {

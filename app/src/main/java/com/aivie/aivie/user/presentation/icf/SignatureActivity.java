@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
@@ -14,6 +15,7 @@ public class SignatureActivity extends AppCompatActivity implements SignatureCon
 
     private SignaturePresenter signaturePresenter;
     private SignaturePad mSignaturePad;
+    private UserProfileDetail userProfileDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,11 @@ public class SignatureActivity extends AppCompatActivity implements SignatureCon
 
         signaturePresenter = new SignaturePresenter(this, new SignatureRepository());
         responseToSignature();
+        getBundleData();
+    }
+
+    void getBundleData() {
+        userProfileDetail = (UserProfileDetail) getIntent().getParcelableExtra("UserProfileDetail");
     }
 
     private void responseToSignature() {
@@ -46,7 +53,7 @@ public class SignatureActivity extends AppCompatActivity implements SignatureCon
     }
 
     public void clickBtnConfirm(View view) {
-        signaturePresenter.clickConfirm(mSignaturePad);
+        signaturePresenter.clickConfirm(mSignaturePad, userProfileDetail);
     }
 
     @Override
