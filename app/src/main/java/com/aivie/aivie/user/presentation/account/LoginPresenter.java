@@ -124,6 +124,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     private void goToSignICF() {
         Intent intent = new Intent((Context) loginView, IcfActivity.class);
+        if (userProfileDetail != null) { intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) userProfileDetail);}
         ((Context) loginView).startActivity(intent);
     }
 
