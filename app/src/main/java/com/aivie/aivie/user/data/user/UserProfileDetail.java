@@ -162,5 +162,9 @@ public class UserProfileDetail implements Parcelable {
     public String getSitePhone() {
         return sitePhone;
     }
+
+    public void updateIcfSigned(boolean signed) {
+        isIcfSigned = signed;
+    }
 }
 
