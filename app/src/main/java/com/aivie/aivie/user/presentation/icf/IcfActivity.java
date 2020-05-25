@@ -2,6 +2,7 @@ package com.aivie.aivie.user.presentation.icf;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -13,11 +14,13 @@ import android.widget.ImageView;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.bumptech.glide.Glide;
 
 public class IcfActivity extends AppCompatActivity implements IcfContract.IcfView {
 
     private IcfPresenter icfPresenter;
+    private UserProfileDetail userProfileDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class IcfActivity extends AppCompatActivity implements IcfContract.IcfVie
 
         icfPresenter = new IcfPresenter(this, new IcfRepository());
         responseToClick();
+        getBundleData();
     }
 
     @Override
@@ -48,13 +52,18 @@ public class IcfActivity extends AppCompatActivity implements IcfContract.IcfVie
         imageSignature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                icfPresenter.clickSign();
+                icfPresenter.clickSign(userProfileDetail);
             }
         });
     }
 
+    void getBundleData() {
+        userProfileDetail = (UserProfileDetail) getIntent().getParcelableExtra("UserProfileDetail");
+    }
+
     public void clickConfirm(View view) {
-        icfPresenter.clickConfirm();
+        icfPresenter.clickConfirm(userProfileDetail);
+        //finish();
     }
 
     @Override

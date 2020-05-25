@@ -3,9 +3,11 @@ package com.aivie.aivie.user.presentation.icf;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.aivie.aivie.user.presentation.account.LoginActivity;
 import com.aivie.aivie.user.presentation.main.MainActivity;
 
@@ -62,14 +64,16 @@ public class IcfPresenter implements IcfContract.IcfAction {
     }
 
     @Override
-    public void clickSign() {
+    public void clickSign(UserProfileDetail userProfileDetail) {
         Intent intent = new Intent((Context) icfView, SignatureActivity.class);
+        if (userProfileDetail != null) { intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) userProfileDetail);}
         ((Context) icfView).startActivity(intent);
     }
 
     @Override
-    public void clickConfirm() {
-        Intent intent = new Intent((Context) icfView, LoginActivity.class);
+    public void clickConfirm(UserProfileDetail userProfileDetail) {
+        Intent intent = new Intent((Context) icfView, MainActivity.class);
+        if (userProfileDetail != null) { intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) userProfileDetail);}
         ((Context) icfView).startActivity(intent);
     }
 }
