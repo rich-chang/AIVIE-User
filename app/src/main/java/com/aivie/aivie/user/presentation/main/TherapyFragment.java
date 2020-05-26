@@ -38,9 +38,8 @@ public class TherapyFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        switch (item.getItemId()) {
-            case R.id.menu_setting:
-                break;
+        if (item.getItemId() == R.id.menu_setting) {
+            // Go to setting activity
         }
         return true;
     }
