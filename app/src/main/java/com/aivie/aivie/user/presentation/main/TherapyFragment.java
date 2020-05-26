@@ -1,5 +1,6 @@
 package com.aivie.aivie.user.presentation.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.presentation.setting.SettingActivity;
 
 public class TherapyFragment extends Fragment {
 
@@ -39,7 +41,8 @@ public class TherapyFragment extends Fragment {
         super.onOptionsItemSelected(item);
 
         if (item.getItemId() == R.id.menu_setting) {
-            // Go to setting activity
+            Intent intent = new Intent(getActivity(), SettingActivity.class);
+            startActivity(intent);
         }
         return true;
     }
