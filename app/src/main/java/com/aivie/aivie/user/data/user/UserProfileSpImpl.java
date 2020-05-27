@@ -84,6 +84,16 @@ public class UserProfileSpImpl implements UserProfileSp {
     }
 
     @Override
+    public boolean isIcfSigned() {
+        return sp.getBoolean(Constant.FIRE_COLUMN_EICF_SIGNED, false);
+    }
+
+    @Override
+    public void setIcfSigned(boolean signed) {
+        sp.edit().putBoolean(Constant.FIRE_COLUMN_EICF_SIGNED, signed).apply();
+    }
+
+    @Override
     public String getSiteId() {
         return sp.getString(Constant.FIRE_COLUMN_SITE_ID, "");
     }

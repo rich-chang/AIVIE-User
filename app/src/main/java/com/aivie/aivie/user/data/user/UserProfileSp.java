@@ -24,6 +24,10 @@ public interface UserProfileSp {
 
     String getPatientOfStudy();
 
+    boolean isIcfSigned();
+
+    void setIcfSigned(boolean signed);
+
     String getSiteId();
 
     String getSiteDoctor();
