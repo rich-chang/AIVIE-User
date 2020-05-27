@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileDetail;
+import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.aivie.aivie.user.presentation.icf.IcfActivity;
 import com.aivie.aivie.user.presentation.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,6 +94,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                 loginView.enableNeedAccount();
 
                                                                 initUserProfileDetail();
+                                                                saveUserProfileToSP(userProfileDetail);
 
                                                                 if (isIcfSigned) {
                                                                     goToUserHome();
@@ -136,6 +138,11 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     private void initUserProfileDetail() {
         userProfileDetail = loginRepository.initUserProfileDetail();
+    }
+
+    private void saveUserProfileToSP(UserProfileDetail userProfileDetail) {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((Context) loginView);
+        userProfileSplmpl.saveToSp(userProfileDetail);
     }
 
 }
