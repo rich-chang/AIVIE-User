@@ -36,7 +36,7 @@ public interface SignatureContract {
 
         void clickClear(SignaturePad mSignaturePad);
 
-        void clickConfirm(SignaturePad mSignaturePad, UserProfileDetail userProfileDetail);
+        void clickConfirm(SignaturePad mSignaturePad);
     }
 
     interface uploadToFireStorageCallback {

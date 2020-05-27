@@ -43,7 +43,7 @@ class SignaturePresenter implements SignatureContract.signatureAction {
     }
 
     @Override
-    public void clickConfirm(SignaturePad mSignaturePad, final UserProfileDetail userProfileDetail) {
+    public void clickConfirm(SignaturePad mSignaturePad) {
 
         signatureView.disablePad();
         signatureView.disableBtnClear();
@@ -91,7 +91,7 @@ class SignaturePresenter implements SignatureContract.signatureAction {
         return userProfileDetail;
     }
 
-    private void goToIcfActivity(String downloadUri, UserProfileDetail userProfileDetail) {
+    private void goToIcfActivity(String downloadUri) {
         Intent intent = new Intent((Context) signatureView, IcfActivity.class);
         intent.putExtra(Constant.SIGNATURE_URI, downloadUri);
         intent.putExtra(Constant.SIGNATURE_SIGNED, true);

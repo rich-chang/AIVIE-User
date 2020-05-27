@@ -17,12 +17,12 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     private LoginContract.LoginView loginView;
     private LoginRepository loginRepository;
-    private UserProfileDetail userProfileDetail;
+    //private UserProfileDetail userProfileDetail;
 
     LoginPresenter(LoginContract.LoginView loginView, LoginRepository loginRepository) {
         this.loginView = loginView;
         this.loginRepository = loginRepository;
-        this.userProfileDetail = null;
+        //this.userProfileDetail = null;
 
         InitActivityView();
     }
@@ -93,7 +93,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                 loginView.enableLoginBtn();
                                                                 loginView.enableNeedAccount();
 
-                                                                initUserProfileDetail();
+                                                                UserProfileDetail userProfileDetail = initUserProfileDetail();
                                                                 saveUserProfileToSP(userProfileDetail);
 
                                                                 if (isIcfSigned) {
@@ -126,18 +126,16 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     private void goToSignICF() {
         Intent intent = new Intent((Context) loginView, IcfActivity.class);
-        if (userProfileDetail != null) { intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) userProfileDetail);}
         ((Context) loginView).startActivity(intent);
     }
 
     private void goToUserHome() {
         Intent intent = new Intent((Context) loginView, MainActivity.class);
-        intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) userProfileDetail);
         ((Context) loginView).startActivity(intent);
     }
 
-    private void initUserProfileDetail() {
-        userProfileDetail = loginRepository.initUserProfileDetail();
+    private UserProfileDetail initUserProfileDetail() {
+        return loginRepository.initUserProfileDetail();
     }
 
     private void saveUserProfileToSP(UserProfileDetail userProfileDetail) {
