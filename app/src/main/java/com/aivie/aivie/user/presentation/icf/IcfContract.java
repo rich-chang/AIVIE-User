@@ -1,7 +1,5 @@
 package com.aivie.aivie.user.presentation.icf;
 
-import com.aivie.aivie.user.data.user.UserProfileDetail;
-
 public interface IcfContract {
 
     interface IcfView {
@@ -29,8 +27,8 @@ public interface IcfContract {
 
         void checkAgreement(boolean checked);
 
-        void clickSign(UserProfileDetail userProfileDetail);
+        void clickSign();
 
-        void clickConfirm(UserProfileDetail userProfileDetail);
+        void clickConfirm();
     }
 }

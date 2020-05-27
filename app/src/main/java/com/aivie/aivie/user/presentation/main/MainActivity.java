@@ -75,12 +75,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             getSupportActionBar().setTitle("Home");
-
-            getBundleData();
         }
-    }
-
-    void getBundleData() {
-        UserProfileDetail userProfileDetail = (UserProfileDetail) getIntent().getParcelableExtra("UserProfileDetail");
     }
 }

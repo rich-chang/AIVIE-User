@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 
 public class HomeFragment extends Fragment {
 
@@ -20,6 +22,14 @@ public class HomeFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        showUserName(root);
+
         return root;
+    }
+
+    private void showUserName(View view) {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
+        String userName = "Good day! " + userProfileSplmpl.getFirstName() + " " + userProfileSplmpl.getLastName();
+        ((TextView) view.findViewById(R.id.textViewWelcome)).setText(userName);
     }
 }

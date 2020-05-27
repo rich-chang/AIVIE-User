@@ -10,6 +10,10 @@ public interface Constant {
 
     String USER_PROFILE_DETAIL = "UserProfileDetail";
 
+    // SharedPreferences
+    String SP_USERPROFILE_FILENAME = "user_profile";   // SP file is located in "/data/data/[package.name]/shared_prefs/"
+    String SP_USERPROFILE_DEFAULT_VALUE = "Default Value";
+
     String SIGNATURE_URI = "SignatureUri";
     String SIGNATURE_SIGNED = "SignatureSigned";
 
