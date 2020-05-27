@@ -103,43 +103,43 @@ public class UserProfileDetail implements Parcelable {
         this.sitePhone = sitePhone;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
+    String getLastName() {
         return lastName;
     }
 
-    public String getDisplayName() {
+    String getDisplayName() {
         return displayName;
     }
 
-    public String getDateOfBirth() {
+    String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public String getGender() {
+    String getGender() {
         return gender;
     }
 
-    public String getRace() {
+    String getRace() {
         return race;
     }
 
-    public String getEthnicity() {
+    String getEthnicity() {
         return ethnicity;
     }
 
-    public String getSubjectNum() {
+    String getSubjectNum() {
         return subjectNum;
     }
 
-    public String getRole() {
+    String getRole() {
         return role;
     }
 
-    public String getPatientOfStudy() {
+    String getPatientOfStudy() {
         return patientOfStudy;
     }
 
@@ -147,19 +147,19 @@ public class UserProfileDetail implements Parcelable {
         return isIcfSigned;
     }
 
-    public String getSiteId() {
+    String getSiteId() {
         return siteId;
     }
 
-    public String getSiteDoctor() {
+    String getSiteDoctor() {
         return siteDoctor;
     }
 
-    public String getSiteSC() {
+    String getSiteSC() {
         return siteSC;
     }
 
-    public String getSitePhone() {
+    String getSitePhone() {
         return sitePhone;
     }
 
