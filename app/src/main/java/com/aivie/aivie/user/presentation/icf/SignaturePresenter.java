@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileDetail;
+import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.google.firebase.firestore.auth.User;
 
@@ -58,7 +59,8 @@ class SignaturePresenter implements SignatureContract.signatureAction {
                 signatureRepository.updateIcfFlagInUserProfile(true, new SignatureContract.updateSignedFlagCallback() {
                     @Override
                     public void onSuccess() {
-                        goToIcfActivity(downloadUri, userProfileDetail);
+                        updateFlagInUserProfile();
+                        goToIcfActivity(downloadUri);
                     }
 
                     @Override
@@ -86,18 +88,15 @@ class SignaturePresenter implements SignatureContract.signatureAction {
         });
     }
 
-    private UserProfileDetail updateFlagInUserProfile(UserProfileDetail userProfileDetail) {
-        userProfileDetail.updateIcfSigned(true);
-        return userProfileDetail;
+    private void updateFlagInUserProfile() {
+        UserProfileSpImpl userProfileSp = new UserProfileSpImpl((Context) signatureView);
+        userProfileSp.setIcfSigned(true);
     }
 
     private void goToIcfActivity(String downloadUri) {
         Intent intent = new Intent((Context) signatureView, IcfActivity.class);
         intent.putExtra(Constant.SIGNATURE_URI, downloadUri);
         intent.putExtra(Constant.SIGNATURE_SIGNED, true);
-        if (userProfileDetail != null) {
-            intent.putExtra(Constant.USER_PROFILE_DETAIL, (Parcelable) updateFlagInUserProfile(userProfileDetail));
-        }
         ((Context) signatureView).startActivity(intent);
 
         signatureView.finishView();
