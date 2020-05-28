@@ -3,6 +3,8 @@ package com.aivie.aivie.user.data.user;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class UserProfileDetail implements Parcelable {
 
     private String firstName;
@@ -20,6 +22,7 @@ public class UserProfileDetail implements Parcelable {
     private String siteDoctor;
     private String siteSC;
     private String sitePhone;
+    private ArrayList<String> visitPlan = new ArrayList<String>();
 
     /* everything below here is for implementing Parcelable */
 
@@ -84,7 +87,7 @@ public class UserProfileDetail implements Parcelable {
     public UserProfileDetail(final String firstName, String lastName, String displayName, String dateOfBirth,
                              String gender, String race, String ethnicity,
                              String subjectNum, String role, String patientOfStudy, boolean eIcfSigned,
-                             String siteId, String siteDoctor, String siteSC, String sitePhone) {
+                             String siteId, String siteDoctor, String siteSC, String sitePhone, ArrayList<String> visitPlan) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -101,6 +104,7 @@ public class UserProfileDetail implements Parcelable {
         this.siteDoctor = siteDoctor;
         this.siteSC = siteSC;
         this.sitePhone = sitePhone;
+        this.visitPlan = visitPlan;
     }
 
     String getFirstName() {
@@ -165,6 +169,10 @@ public class UserProfileDetail implements Parcelable {
 
     public void updateIcfSigned(boolean signed) {
         isIcfSigned = signed;
+    }
+
+    ArrayList<String> getVisitPlan() {
+        return visitPlan;
     }
 }
 
