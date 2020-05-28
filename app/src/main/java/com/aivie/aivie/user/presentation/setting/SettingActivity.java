@@ -25,8 +25,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void displayAppVersion() {
-        String version = BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE;
-        ((TextView) findViewById(R.id.textViewAppVersion)).setText(version);
+        ((TextView) findViewById(R.id.textViewAppVersion)).setText(BuildConfig.VERSION_NAME);
     }
 
     public void clickLogout(View view) {
