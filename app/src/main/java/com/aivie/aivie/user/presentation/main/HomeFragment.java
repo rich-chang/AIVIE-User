@@ -50,26 +50,32 @@ public class HomeFragment extends Fragment {
         ((TextView) view.findViewById(R.id.textViewWelcome)).setText(userName);
     }
 
+    private void getVisitPlan(View view) {
+
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
+        ArrayList<String> visitPlan = userProfileSplmpl.getVisitPlan();
+
+        // Re-order
+        Collections.sort(visitPlan);
+
+        // Set text in UI
+        setNextVisitDate(view, visitPlan.get(0));
+        setVisitPlan(view, visitPlan);
+    }
+
     private void setNextVisitDate(View view, String nextVisitDate) {
         ((TextView) view.findViewById(R.id.textViewNextVisit)).setText(nextVisitDate);
     }
 
-    private void getVisitPlan(View view) {
-        ArrayList<String> visitPlan = new ArrayList<String>();
-
-        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
-        visitPlan = userProfileSplmpl.getVisitPlan();
-
-        Collections.sort(visitPlan);
-
-        setNextVisitDate(view, visitPlan.get(0));
+    private void setVisitPlan(View view, ArrayList<String> visitPlan) {
 
         for (int i=0; i<visitPlan.size(); i++) {
             TextView tvVisitDate = new TextView(getContext());
 
             tvVisitDate.setText(visitPlan.get(i));
             tvVisitDate.setTextSize(16);
-            tvVisitDate.setPadding(0, 16, 0, 16);
+            tvVisitDate.setTextColor(Integer.parseInt("000000", 16)+0xFF000000);
+            tvVisitDate.setPadding(0, 8, 0, 8);
 
             LinearLayout ll_visitPlan = (LinearLayout) view.findViewById(R.id.ll_visitPlan);
             ll_visitPlan.addView(tvVisitDate);
