@@ -9,6 +9,8 @@ public interface Constant {
     String TAG = "richc";
 
     String USER_PROFILE_DETAIL = "UserProfileDetail";
+    String DATE_FORMAT_SIMPLE = "yyyy-MM-dd";
+    String DATE_FORMAT_FULL = "yyyy/MM/dd HH:mm";
 
     // SharedPreferences
     String SP_USERPROFILE_FILENAME = "user_profile";   // SP file is located in "/data/data/[package.name]/shared_prefs/"

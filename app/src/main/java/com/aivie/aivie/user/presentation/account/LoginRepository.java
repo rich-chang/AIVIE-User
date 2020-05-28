@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 class LoginRepository {
@@ -195,8 +196,7 @@ class LoginRepository {
                             Timestamp tm = visitsDate.get(i);
                             Date date = tm.toDate();
 
-                            SimpleDateFormat sfdFull = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                            SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat sfdFull = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
                             visitPlan.add(sfdFull.format(date));
 
                             // TODO: Register notification for each date
