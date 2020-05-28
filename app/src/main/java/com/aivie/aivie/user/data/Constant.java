@@ -9,6 +9,8 @@ public interface Constant {
     String TAG = "richc";
 
     String USER_PROFILE_DETAIL = "UserProfileDetail";
+    String DATE_FORMAT_SIMPLE = "yyyy-MM-dd";
+    String DATE_FORMAT_FULL = "yyyy/MM/dd HH:mm";
 
     // SharedPreferences
     String SP_USERPROFILE_FILENAME = "user_profile";   // SP file is located in "/data/data/[package.name]/shared_prefs/"
@@ -45,6 +47,7 @@ public interface Constant {
     String FIRE_COLUMN_SITE_DOCTOR = "SiteDoctor";
     String FIRE_COLUMN_SITE_SC = "SiteSC";
     String FIRE_COLUMN_SITE_PHONE = "SitePhone";
+    String FIRE_COLUMN_STUDY_VISIT_PLAN = "VisitPlan";
 
     // Request Permission
     Integer REQ_CODE_ASK_CALL_PHONE = 100;

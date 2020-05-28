@@ -18,7 +18,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 class LoginRepository {
@@ -41,6 +44,7 @@ class LoginRepository {
     private String siteDoctor;
     private String siteSC;
     private String sitePhone;
+    private ArrayList<String> visitPlan = new ArrayList<String>();
 
     LoginRepository() {
         mAuth = FirebaseAuth.getInstance();
@@ -182,7 +186,21 @@ class LoginRepository {
 
                     DocumentSnapshot documentUserStudy = task.getResult();
                     if(Objects.requireNonNull(documentUserStudy).exists()) {
+
                         patientOfStudy = (String) documentUserStudy.get(Constant.FIRE_COLUMN_TITLE);
+
+                        List<Timestamp> visitsDate = (List<Timestamp>) documentUserStudy.getData().get(Constant.FIRE_COLUMN_STUDY_VISIT_PLAN);
+
+                        for (int i=0; i<visitsDate.size(); i++) {
+
+                            Timestamp tm = visitsDate.get(i);
+                            Date date = tm.toDate();
+
+                            SimpleDateFormat sfdFull = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
+                            visitPlan.add(sfdFull.format(date));
+
+                            // TODO: Register notification for each date
+                        }
 
                         getUserStudyCallback.onSuccess();
                     }
@@ -222,6 +240,6 @@ class LoginRepository {
 
         return new UserProfileDetail(firstName, lastName, displayName, dateOfBirth,
                 gender, race, ethnicity, subjectNum, role,
-                patientOfStudy, isIcfSigned, siteId, siteDoctor, siteSC, sitePhone);
+                patientOfStudy, isIcfSigned, siteId, siteDoctor, siteSC, sitePhone, visitPlan);
     }
 }
