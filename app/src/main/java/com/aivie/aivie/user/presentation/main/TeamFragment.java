@@ -92,6 +92,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
 
         UserProfileSpImpl userProfileSp = new UserProfileSpImpl(Objects.requireNonNull(getActivity()));
 
+        ((TextView) view.findViewById(R.id.textViewSubjectNum)).setText(userProfileSp.getSubjectNum());
         ((TextView) view.findViewById(R.id.textViewSiteId)).setText(userProfileSp.getSiteId());
         ((TextView) view.findViewById(R.id.textViewSiteDoctor)).setText(userProfileSp.getSiteDoctor());
         ((TextView) view.findViewById(R.id.textViewSiteSC)).setText(userProfileSp.getSiteSC());
