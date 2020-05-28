@@ -39,7 +39,13 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         showUserName(root);
-        getVisitPlan(root);
+
+        try {
+            getVisitPlan(root);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return root;
     }
@@ -50,7 +56,7 @@ public class HomeFragment extends Fragment {
         ((TextView) view.findViewById(R.id.textViewWelcome)).setText(userName);
     }
 
-    private void getVisitPlan(View view) {
+    private void getVisitPlan(View view) throws ParseException {
 
         UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
         ArrayList<String> visitPlan = userProfileSplmpl.getVisitPlan();
@@ -59,12 +65,22 @@ public class HomeFragment extends Fragment {
         Collections.sort(visitPlan);
 
         // Set text in UI
-        setNextVisitDate(view, visitPlan.get(0));
+        setNextVisitDate(view, visitPlan);
         setVisitPlan(view, visitPlan);
     }
 
-    private void setNextVisitDate(View view, String nextVisitDate) {
-        ((TextView) view.findViewById(R.id.textViewNextVisit)).setText(nextVisitDate);
+    private void setNextVisitDate(View view, ArrayList<String> visitPlan) throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
+
+        for (int i=0; i<visitPlan.size(); i++) {
+            Date visitDate = sdf.parse(visitPlan.get(i));
+
+            if (new Date().before(visitDate)) {
+                ((TextView) view.findViewById(R.id.textViewNextVisit)).setText(visitPlan.get(i));
+                break;
+            }
+        }
     }
 
     private void setVisitPlan(View view, ArrayList<String> visitPlan) {
