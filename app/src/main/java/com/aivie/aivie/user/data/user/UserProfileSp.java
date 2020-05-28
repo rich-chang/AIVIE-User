@@ -1,5 +1,7 @@
 package com.aivie.aivie.user.data.user;
 
+import java.util.ArrayList;
+
 public interface UserProfileSp {
 
     void saveToSp(UserProfileDetail userProfileDetail);
@@ -35,4 +37,6 @@ public interface UserProfileSp {
     String getSiteSC();
 
     String getSitePhone();
+
+    ArrayList<String> getVisitPlan();
 }

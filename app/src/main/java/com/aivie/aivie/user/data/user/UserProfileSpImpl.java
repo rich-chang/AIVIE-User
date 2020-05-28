@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 
 import com.aivie.aivie.user.data.Constant;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserProfileSpImpl implements UserProfileSp {
 
     private SharedPreferences sp;
@@ -32,6 +36,18 @@ public class UserProfileSpImpl implements UserProfileSp {
                 .putString(Constant.FIRE_COLUMN_SITE_SC, userProfileDetail.getSiteSC())
                 .putString(Constant.FIRE_COLUMN_SITE_PHONE, userProfileDetail.getSitePhone())
         .apply();
+
+        // Handle string list for visit plan
+        ArrayList<String> visitPlan = userProfileDetail.getVisitPlan();
+        Set<String> set = new HashSet<String>();
+
+        for (int i=0; i<visitPlan.size(); i++) {
+            set.add(visitPlan.get(i));
+        }
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putStringSet(Constant.FIRE_COLUMN_STUDY_VISIT_PLAN, set);
+        editor.apply();
     }
 
     @Override
@@ -112,5 +128,17 @@ public class UserProfileSpImpl implements UserProfileSp {
     @Override
     public String getSitePhone() {
         return sp.getString(Constant.FIRE_COLUMN_SITE_PHONE, "");
+    }
+
+    @Override
+    public ArrayList<String> getVisitPlan() {
+        Set<String> fetch = sp.getStringSet(Constant.FIRE_COLUMN_STUDY_VISIT_PLAN, null);
+
+        ArrayList<String> visitPlan = new ArrayList<String>();
+
+        assert fetch != null;
+        visitPlan.addAll(fetch);
+            
+        return visitPlan;
     }
 }
