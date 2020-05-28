@@ -45,6 +45,7 @@ public interface Constant {
     String FIRE_COLUMN_SITE_DOCTOR = "SiteDoctor";
     String FIRE_COLUMN_SITE_SC = "SiteSC";
     String FIRE_COLUMN_SITE_PHONE = "SitePhone";
+    String FIRE_COLUMN_STUDY_VISIT_PLAN = "VisitPlan";
 
     // Request Permission
     Integer REQ_CODE_ASK_CALL_PHONE = 100;
