@@ -8,6 +8,8 @@ public interface MainContract {
 
     interface MainAction {
 
+        void saveVersionToSp();
+
         void goToLoginView();
 
         void goToHomeView();

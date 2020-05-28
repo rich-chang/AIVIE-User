@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.aivie.aivie.user.BuildConfig;
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileDetail;
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
         mainPresenter = new MainPresenter(this);
+        mainPresenter.saveVersionToSp();
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
 

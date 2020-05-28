@@ -2,7 +2,10 @@ package com.aivie.aivie.user.presentation.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
+import com.aivie.aivie.user.BuildConfig;
+import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.presentation.account.LoginActivity;
 
 public class MainPresenter implements MainContract.MainAction {
@@ -11,6 +14,12 @@ public class MainPresenter implements MainContract.MainAction {
 
     MainPresenter(MainContract.MainView view) {
         this.mainView = view;
+    }
+
+    @Override
+    public void saveVersionToSp() {
+        SharedPreferences sp = ((Context) mainView).getSharedPreferences(Constant.SP_APP_GENERAL, Context.MODE_PRIVATE);
+        sp.edit().putString(Constant.APP_VERSION, String.valueOf(BuildConfig.VERSION_CODE)).apply();
     }
 
     @Override
