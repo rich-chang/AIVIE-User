@@ -18,8 +18,10 @@ import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
+import com.aivie.aivie.user.presentation.setting.UserProfileActivity;
+import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
 
-public class TherapyFragment extends Fragment {
+public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -27,6 +29,9 @@ public class TherapyFragment extends Fragment {
 
         //return super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_therapy, container, false);
+
+        root.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
+        root.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
 
         setHasOptionsMenu(true);
         setAdverseEventTitle(root);
@@ -113,6 +118,18 @@ public class TherapyFragment extends Fragment {
         ll_adverseEvent.addView(duration);
 
         ll_adverseEvents.addView(ll_adverseEvent);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.imageViewAdverseEvent:
+            case R.id.textViewAdverseEvent:
+                Intent intent = new Intent(getContext(), AdverseEventActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
