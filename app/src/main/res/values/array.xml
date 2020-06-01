@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="adverse_events">
+        <item>Insomnia</item>
+        <item>Dry Month</item>
+        <item>Headache</item>
+        <item>Loss Appetite</item>
+        <item>Tremer</item>
+        <item>Drowsiness</item>
+        <item>Dizziness</item>
+        <item>Gain Weight</item>
+        <item>Sedation</item>
+    </array>
+</resources>
