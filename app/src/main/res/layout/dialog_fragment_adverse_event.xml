@@ -58,8 +58,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint='"MM-DD-YYYY"'
-                android:inputType="textPersonName"
+                android:focusable="false"
+                android:inputType="date"
                 android:textAlignment="viewEnd" />
 
         </LinearLayout>
@@ -75,15 +75,18 @@
                 android:id="@+id/textViewEventDuration"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="How long does it take" />
 
-            <Spinner
-                android:id="@+id/spinnerEventDuration"
+            <EditText
+                android:id="@+id/editTextEventDuration"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:focusable="false"
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <LinearLayout
