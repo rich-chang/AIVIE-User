@@ -3,24 +3,32 @@ package com.aivie.aivie.user.presentation.therapy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.presentation.main.TherapyFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AdverseEventActivity extends AppCompatActivity {
 
-    private String adverseEvent;
+    private String eventName;
+    private String eventReportedDate;
+    private String eventDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,7 @@ public class AdverseEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adverse_event);
 
         initAdverseEvents();
+        initEventReportedDate();
     }
 
     private void initAdverseEvents() {
@@ -51,8 +60,8 @@ public class AdverseEventActivity extends AppCompatActivity {
                 }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adverseEvent = Arrays.asList(adverseEvents).get(selectedIndex[0]);
-                        editTextAdverseEvent.setText(adverseEvent);
+                        eventName = Arrays.asList(adverseEvents).get(selectedIndex[0]);
+                        editTextAdverseEvent.setText(eventName);
                     }
                 }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
@@ -60,11 +69,40 @@ public class AdverseEventActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
                 builder.show();
             }
         });
+    }
 
+    private void initEventReportedDate() {
+
+        final Calendar myCalendar = Calendar.getInstance();
+        final EditText editTextReportedDate = findViewById(R.id.editTextReportDate);
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
+                eventReportedDate = sdf.format(myCalendar.getTime());
+                editTextReportedDate.setText(eventReportedDate);
+            }
+        };
+
+        editTextReportedDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(v.getContext(),
+                        date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
     }
 
     public void btnClickCancel(View view) {
@@ -78,6 +116,7 @@ public class AdverseEventActivity extends AppCompatActivity {
 
     private void saveDataToSp() {
         //TODO:
-        Log.i(Constant.TAG, "adverseEvent: " + adverseEvent);
+        Log.i(Constant.TAG, "adverseEvent: " + eventName);
+        Log.i(Constant.TAG, "eventReportedDate: "+ eventReportedDate);
     }
 }
