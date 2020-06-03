@@ -43,7 +43,6 @@ public class AdverseEventActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AdverseEventActivity.this);
 
                 builder.setTitle("Adverse Events");
-                //builder.setMessage("Please select one");
                 builder.setSingleChoiceItems(getResources().getStringArray(R.array.adverse_events), -1, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
