@@ -37,6 +37,7 @@ public class AdverseEventActivity extends AppCompatActivity {
 
         initAdverseEvents();
         initEventReportedDate();
+        initEventDuration();
     }
 
     private void initAdverseEvents() {
@@ -105,6 +106,45 @@ public class AdverseEventActivity extends AppCompatActivity {
         });
     }
 
+    private void initEventDuration() {
+
+        final String[] durationList = new String[30];   // set max duration day is 30
+        for (int i=0; i<30; i++) {
+            durationList[i] = String.valueOf(i);
+        }
+
+        final EditText editTextEventDuration= findViewById(R.id.editTextEventDuration);
+        final Integer[] selectedIndex = {0};
+
+        editTextEventDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AdverseEventActivity.this);
+
+                builder.setTitle("Duration (day)");
+                builder.setSingleChoiceItems(durationList, -1, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        selectedIndex[0] = i;
+                    }
+                }).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        eventDuration = Arrays.asList(durationList).get(selectedIndex[0]);
+                        editTextEventDuration.setText(eventDuration);
+                    }
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+    }
+
     public void btnClickCancel(View view) {
         finish();
     }
@@ -118,5 +158,6 @@ public class AdverseEventActivity extends AppCompatActivity {
         //TODO:
         Log.i(Constant.TAG, "adverseEvent: " + eventName);
         Log.i(Constant.TAG, "eventReportedDate: "+ eventHappenedDate);
+        Log.i(Constant.TAG, "eventDuration: "+ eventDuration);
     }
 }
