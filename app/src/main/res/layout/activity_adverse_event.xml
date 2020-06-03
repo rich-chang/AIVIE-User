@@ -59,14 +59,14 @@
                 android:text="When does it happend" />
 
             <EditText
-                android:id="@+id/editTextReportDate"
+                android:id="@+id/editTextHappenedDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ems="10"
                 android:focusable="false"
                 android:inputType="date"
-                android:textAlignment="viewEnd" />
+                android:textAlignment="viewStart" />
 
         </LinearLayout>
 

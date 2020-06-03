@@ -27,7 +27,7 @@ import java.util.Locale;
 public class AdverseEventActivity extends AppCompatActivity {
 
     private String eventName;
-    private String eventReportedDate;
+    private String eventHappenedDate;
     private String eventDuration;
 
     @Override
@@ -77,7 +77,7 @@ public class AdverseEventActivity extends AppCompatActivity {
     private void initEventReportedDate() {
 
         final Calendar myCalendar = Calendar.getInstance();
-        final EditText editTextReportedDate = findViewById(R.id.editTextReportDate);
+        final EditText editTextReportedDate = findViewById(R.id.editTextHappenedDate);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -88,8 +88,8 @@ public class AdverseEventActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
-                eventReportedDate = sdf.format(myCalendar.getTime());
-                editTextReportedDate.setText(eventReportedDate);
+                eventHappenedDate = sdf.format(myCalendar.getTime());
+                editTextReportedDate.setText(eventHappenedDate);
             }
         };
 
@@ -117,6 +117,6 @@ public class AdverseEventActivity extends AppCompatActivity {
     private void saveDataToSp() {
         //TODO:
         Log.i(Constant.TAG, "adverseEvent: " + eventName);
-        Log.i(Constant.TAG, "eventReportedDate: "+ eventReportedDate);
+        Log.i(Constant.TAG, "eventReportedDate: "+ eventHappenedDate);
     }
 }
