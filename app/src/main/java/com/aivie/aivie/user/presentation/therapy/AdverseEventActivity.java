@@ -5,19 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
-import com.aivie.aivie.user.presentation.main.TherapyFragment;
+import com.aivie.aivie.user.data.sqlite.DBHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -26,6 +22,7 @@ import java.util.Locale;
 
 public class AdverseEventActivity extends AppCompatActivity {
 
+    private DBHelper db;
     private String eventName;
     private String eventHappenedDate;
     private String eventDuration;
@@ -35,6 +32,7 @@ public class AdverseEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adverse_event);
 
+        db = new DBHelper(this);
         initAdverseEvents();
         initEventReportedDate();
         initEventDuration();
@@ -150,14 +148,16 @@ public class AdverseEventActivity extends AppCompatActivity {
     }
 
     public void btnClickConfirm(View view) {
-        saveDataToSp();
-        finish();
+
+        if (eventName != null && eventHappenedDate != null && eventDuration != null) {
+            saveDataToDb();
+            finish();
+        } else {
+            Toast.makeText(getApplicationContext(), "Do not leave empty field", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void saveDataToSp() {
-        //TODO:
-        Log.i(Constant.TAG, "adverseEvent: " + eventName);
-        Log.i(Constant.TAG, "eventReportedDate: "+ eventHappenedDate);
-        Log.i(Constant.TAG, "eventDuration: "+ eventDuration);
+    private void saveDataToDb() {
+        db.insertEvent(eventName, eventHappenedDate, eventDuration);
     }
 }
