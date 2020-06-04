@@ -2,7 +2,6 @@ package com.aivie.aivie.user.presentation.account;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 
 import com.aivie.aivie.user.data.Constant;
@@ -37,7 +36,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     public void checkIfLogin() {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Log.i(Constant.TAG, FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString());
+            Log.i(Constant.TAG, "checkIfLogin: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
             goToUserHome();
         }
     }
