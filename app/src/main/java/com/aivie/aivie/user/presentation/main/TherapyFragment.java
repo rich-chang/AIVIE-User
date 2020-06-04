@@ -1,9 +1,7 @@
 package com.aivie.aivie.user.presentation.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,18 +16,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
-import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.sqlite.DBHelper;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
-import com.aivie.aivie.user.presentation.setting.UserProfileActivity;
 import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
-import com.google.firebase.firestore.util.Assert;
 
 import java.util.ArrayList;
 
 public class TherapyFragment extends Fragment implements View.OnClickListener {
 
-    private DBHelper mydb;
+    private DBHelper db;
     private View rootView;
 
     @Nullable
@@ -42,12 +37,12 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         rootView.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
         rootView.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
 
-        mydb = new DBHelper(getContext());
+        db = new DBHelper(getContext());
 
         setHasOptionsMenu(true);
 
         setAdverseEventTitle();
-        displayAdverseEvent(mydb);
+        displayAdverseEvent(db);
 
         return rootView;
     }
@@ -160,7 +155,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
-        displayAdverseEvent(mydb);
+        displayAdverseEvent(db);
     }
 
     @Override
