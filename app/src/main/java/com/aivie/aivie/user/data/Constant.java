@@ -15,6 +15,7 @@ public interface Constant {
     // SharedPreferences
     String SP_USERPROFILE_FILENAME = "user_profile";   // SP file is located in "/data/data/[package.name]/shared_prefs/"
     String SP_USERPROFILE_DEFAULT_VALUE = "Default Value";
+    String SP_ADVERSE_EVENTS_LAST_INDEX = "LastIndexOfAdverseEvents";
     String SP_APP_GENERAL = "app_general";
     String APP_VERSION = "version";
 

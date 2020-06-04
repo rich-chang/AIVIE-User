@@ -39,4 +39,8 @@ public interface UserProfileSp {
     String getSitePhone();
 
     ArrayList<String> getVisitPlan();
+
+    int getLastIndexOfAdverseEvents();
+
+    void saveLastIndexOfAdverseEvents(int lastIndexOfAdverseEvents);
 }

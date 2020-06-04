@@ -141,4 +141,14 @@ public class UserProfileSpImpl implements UserProfileSp {
             
         return visitPlan;
     }
+
+    @Override
+    public int getLastIndexOfAdverseEvents() {
+        return sp.getInt(Constant.SP_ADVERSE_EVENTS_LAST_INDEX, 0);
+    }
+
+    @Override
+    public void saveLastIndexOfAdverseEvents(int lastIndexOfAdverseEvents) {
+        sp.edit().putInt(Constant.SP_ADVERSE_EVENTS_LAST_INDEX, lastIndexOfAdverseEvents).apply();
+    }
 }
