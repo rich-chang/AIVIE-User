@@ -53,11 +53,13 @@ public class AdverseEventDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean reCreateTable() {
+    public void removeAll() {
 
+        // db.delete(String tableName, String whereClause, String[] whereArgs);
+        // If whereClause is null, it will delete all rows.
 
-
-        return true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(AEH_TABLE_NAME, null, null);
     }
 
     public boolean insertEvent (String userId, String eventName, String eventHappened, String eventDuration) {
