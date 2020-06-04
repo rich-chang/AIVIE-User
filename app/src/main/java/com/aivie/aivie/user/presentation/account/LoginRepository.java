@@ -65,7 +65,7 @@ class LoginRepository {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getCurrentUser().getUid();
-                            Log.i(Constant.TAG, "signInWithEmail:success");
+                            Log.i(Constant.TAG, "signInWithEmail:success: " + mAuth.getCurrentUser().getEmail() + " " + userId);
                             loginCallback.onSuccess("signInWithEmail:success");
                         } else {
                             Log.i(Constant.TAG, String.format("signInWithEmail:failure %s", task.getException()));
