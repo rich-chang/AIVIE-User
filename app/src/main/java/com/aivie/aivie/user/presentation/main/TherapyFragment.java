@@ -19,6 +19,7 @@ import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
 import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -83,6 +84,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
         removeAllEvents();
         setAdverseEventTitle();
+        authCheckDatabase();
 
         ArrayList<String> eventName = db.getAllEventName();
         ArrayList<String> eventHappenedDate = db.getAllEventHappenedDate();
@@ -111,6 +113,17 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
         if (ll_adverseEvents.getChildCount() > 0) {
             ll_adverseEvents.removeAllViews();
+        }
+    }
+
+    private void authCheckDatabase() {
+
+        if (db.numberOfRows() > 0) {
+
+            ArrayList<String> eventUserId = db.getAlluserId();
+            if (!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(eventUserId.get(0))) {
+                db.removeAll();
+            }
         }
     }
 
