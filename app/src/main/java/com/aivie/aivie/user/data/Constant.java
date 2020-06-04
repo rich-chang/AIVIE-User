@@ -15,6 +15,7 @@ public interface Constant {
     // SharedPreferences
     String SP_USERPROFILE_FILENAME = "user_profile";   // SP file is located in "/data/data/[package.name]/shared_prefs/"
     String SP_USERPROFILE_DEFAULT_VALUE = "Default Value";
+    String SP_ADVERSE_EVENTS_LAST_INDEX = "LastIndexOfAdverseEvents";
     String SP_APP_GENERAL = "app_general";
     String APP_VERSION = "version";
 
@@ -28,6 +29,7 @@ public interface Constant {
     String FIRE_COLLECTION_ROLES = "roles";
     String FIRE_COLLECTION_STUDIES = "studies";
     String FIRE_COLLECTION_ICF = "icf";
+    String FIRE_COLLECTION_ADVERSE_EVENTS = "adverse_events";
 
     String FIRE_COLUMN_ID = "Id";
     String FIRE_COLUMN_TITLE = "Title";
@@ -48,6 +50,13 @@ public interface Constant {
     String FIRE_COLUMN_SITE_SC = "SiteSC";
     String FIRE_COLUMN_SITE_PHONE = "SitePhone";
     String FIRE_COLUMN_STUDY_VISIT_PLAN = "VisitPlan";
+    // Adverse Events
+    String FIRE_AEH_COLUMN_ID = "Id";
+    String FIRE_AEH_COLUMN_USER_ID = "UserId";
+    String FIRE_AEH_COLUMN_EVENT_NAME = "EventName";
+    String FIRE_AEH_COLUMN_EVENT_HAPPENED = "EventHappened";   // happened time
+    String FIRE_AEH_COLUMN_EVENT_DURATION = "EventDuration";
+    String FIRE_AEH_COLUMN_EVENT_REPORTED = "EventReported";   // now time
 
     // Request Permission
     Integer REQ_CODE_ASK_CALL_PHONE = 100;

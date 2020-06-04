@@ -1,11 +1,14 @@
 package com.aivie.aivie.user.presentation.therapy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,12 +17,21 @@ import android.widget.Toast;
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
+import com.aivie.aivie.user.data.user.UserProfileSpImpl;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class AdverseEventActivity extends AppCompatActivity {
@@ -153,6 +165,7 @@ public class AdverseEventActivity extends AppCompatActivity {
 
         if (eventName != null && eventHappenedDate != null && eventDuration != null) {
             saveDataToDb();
+            saveDataToFirebase();
             finish();
         } else {
             Toast.makeText(getApplicationContext(), "Do not leave empty field", Toast.LENGTH_SHORT).show();
@@ -164,5 +177,57 @@ public class AdverseEventActivity extends AppCompatActivity {
                 eventName,
                 eventHappenedDate,
                 eventDuration);
+    }
+
+    private void saveDataToFirebase() {
+
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        final int currentIndex = getLastIndexOfAdverseEvents() + 1;
+
+        Map<String, Object> userAdverseEventsData = new HashMap<>();
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_ID, currentIndex);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_USER_ID, userId);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_NAME, eventName);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_HAPPENED, eventHappenedDate);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_DURATION, eventDuration);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_REPORTED, sdf.format(new Date()));
+
+        db.collection(Constant.FIRE_COLLECTION_USERS).document(userId)
+                .collection(Constant.FIRE_COLLECTION_ADVERSE_EVENTS).document(String.valueOf(currentIndex))
+                .set(userAdverseEventsData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if (Constant.DEBUG) Log.d(Constant.TAG, "saveDataToFirebase: successfully written!");
+                        saveLastIndexOfAdverseEvents(currentIndex);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (Constant.DEBUG) Log.w(Constant.TAG, "saveDataToFirebase: Error writing document", e);
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (Constant.DEBUG) Log.d(Constant.TAG, "saveDataToFirebase: complete");
+                    }
+                });
+    }
+
+    private int getLastIndexOfAdverseEvents() {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl(this);
+        return userProfileSplmpl.getLastIndexOfAdverseEvents();
+    }
+
+    private void saveLastIndexOfAdverseEvents(int lastIndexOfAdverseEvents) {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((Context) this);
+        userProfileSplmpl.saveLastIndexOfAdverseEvents(lastIndexOfAdverseEvents);
     }
 }

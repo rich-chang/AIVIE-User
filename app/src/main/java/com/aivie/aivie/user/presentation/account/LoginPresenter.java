@@ -86,21 +86,29 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                     public void onSuccess() {
 
                                                         loginRepository.getUserRole(documentUser, new LoginContract.GetUserRoleCallback() {
+
                                                             @Override
                                                             public void onSuccess() {
 
-                                                                loginView.hideProgressDialog();
-                                                                loginView.enableLoginBtn();
-                                                                loginView.enableNeedAccount();
+                                                                loginRepository.getUserAdverseEvents(new LoginContract.GetUserAdverseEvents() {
+                                                                    @Override
+                                                                    public void onSuccess(int lastIndexOfAdverseEvents) {
 
-                                                                UserProfileDetail userProfileDetail = initUserProfileDetail();
-                                                                saveUserProfileToSP(userProfileDetail);
+                                                                        loginView.hideProgressDialog();
+                                                                        loginView.enableLoginBtn();
+                                                                        loginView.enableNeedAccount();
 
-                                                                if (isIcfSigned) {
-                                                                    goToUserHome();
-                                                                } else {
-                                                                    goToSignICF();
-                                                                }
+                                                                        UserProfileDetail userProfileDetail = initUserProfileDetail();
+                                                                        saveUserProfileToSP(userProfileDetail);
+                                                                        saveLastIndexOfAdverseEventsToSp(lastIndexOfAdverseEvents);
+
+                                                                        if (isIcfSigned) {
+                                                                            goToUserHome();
+                                                                        } else {
+                                                                            goToSignICF();
+                                                                        }
+                                                                    }
+                                                                });
                                                             }
                                                         });
                                                     }
@@ -143,4 +151,8 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
         userProfileSplmpl.saveToSp(userProfileDetail);
     }
 
+    private void saveLastIndexOfAdverseEventsToSp(int lastIndexOfAdverseEvents) {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((Context) loginView);
+        userProfileSplmpl.saveLastIndexOfAdverseEvents(lastIndexOfAdverseEvents);
+    }
 }

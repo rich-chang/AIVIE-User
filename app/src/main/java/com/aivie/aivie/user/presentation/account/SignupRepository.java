@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.presentation.icf.SignatureContract;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -108,6 +109,45 @@ class SignupRepository {
                         createTempDataCallback.onComplete();
                     }
                 });
+    }
+
+    void initAdverseEventsCollection(final SignupContract.InitUserAdverseEventsCallback initUserAdverseEventsCallback) {
+
+        Map<String, Object> userAdverseEventsData = new HashMap<>();
+
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_ID, 0);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_USER_ID, userId);
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_NAME, "");
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_HAPPENED, "");
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_DURATION, "");
+        userAdverseEventsData.put(Constant.FIRE_AEH_COLUMN_EVENT_REPORTED, "");
+
+        db.collection(Constant.FIRE_COLLECTION_USERS).document(userId)
+                .collection(Constant.FIRE_COLLECTION_ADVERSE_EVENTS).document("0")
+                .set(userAdverseEventsData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if (Constant.DEBUG) Log.d(Constant.TAG, "initAdverseEventsCollection: successfully written!");
+                        initUserAdverseEventsCallback.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (Constant.DEBUG) Log.w(Constant.TAG, "initAdverseEventsCollection: Error writing document", e);
+                        initUserAdverseEventsCallback.onFailure();
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (Constant.DEBUG) Log.d(Constant.TAG, "initAdverseEventsCollection: complete");
+                        initUserAdverseEventsCallback.onComplete();
+                    }
+                });
+
 
     }
 }

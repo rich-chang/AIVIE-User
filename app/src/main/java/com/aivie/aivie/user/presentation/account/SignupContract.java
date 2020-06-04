@@ -50,4 +50,13 @@ public interface SignupContract {
         void onComplete();
     }
 
+    interface InitUserAdverseEventsCallback {
+
+        void onSuccess();
+
+        void onFailure();
+
+        void onComplete();
+    }
+
 }

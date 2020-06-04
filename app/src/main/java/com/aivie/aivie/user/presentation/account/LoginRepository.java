@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -241,5 +243,29 @@ class LoginRepository {
         return new UserProfileDetail(firstName, lastName, displayName, dateOfBirth,
                 gender, race, ethnicity, subjectNum, role,
                 patientOfStudy, isIcfSigned, siteId, siteDoctor, siteSC, sitePhone, visitPlan);
+    }
+
+    void getUserAdverseEvents(final LoginContract.GetUserAdverseEvents getUserAdverseEvents) {
+
+        db.collection(Constant.FIRE_COLLECTION_USERS)
+                .document(userId)
+                .collection(Constant.FIRE_COLLECTION_ADVERSE_EVENTS)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        getUserAdverseEvents.onSuccess(Integer.valueOf(document.getId()));
+                        //TODO: Save events to local sqlite database when every time login
+                        //TODO: For known isseu: switch account login and back to origainl account, local sqlite will be clean.
+                        //TODO: Not yet implemnt sync from online
+                    }
+                } else {
+                    Log.d(Constant.TAG, "getUserAdverseEvents", task.getException());
+                }
+            }
+        });
     }
 }
