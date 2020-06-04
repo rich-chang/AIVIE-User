@@ -41,9 +41,6 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
         setHasOptionsMenu(true);
 
-        setAdverseEventTitle();
-        displayAdverseEvent(db);
-
         return rootView;
     }
 
@@ -84,6 +81,9 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private void displayAdverseEvent(@NonNull DBHelper db) {
 
+        removeAllEvents();
+        setAdverseEventTitle();
+
         ArrayList<String> eventName = db.getAllEventName();
         ArrayList<String> eventHappenedDate = db.getAllEventHappenedDate();
         ArrayList<String> eventDuration = db.getAllEventDuration();
@@ -105,8 +105,16 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         setAdverseEvent("Loss Appetite", "2020-05-31", "1");
     }
 
+    private void removeAllEvents() {
+
+        LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
+
+        if (ll_adverseEvents.getChildCount() > 0) {
+            ll_adverseEvents.removeAllViews();
+        }
+    }
+
     private void setAdverseEvent (String eventName, String reportedDate, String eventDuration) {
-        // TODO: Implement sample data by adding LinearLayout in LinearLayout
 
         LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
         LinearLayout ll_adverseEvent = new LinearLayout(getContext());
