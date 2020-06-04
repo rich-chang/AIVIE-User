@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class AdverseEventDBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "aivie_user.db";
@@ -32,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private HashMap hp;
 
     //public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-    public DBHelper(@Nullable Context context) {
+    public AdverseEventDBHelper(@Nullable Context context) {
         //super(context, name, factory, version);
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -51,6 +51,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS AdverseEventHistory");
         onCreate(sqLiteDatabase);
+    }
+
+    public boolean reCreateTable() {
+
+
+
+        return true;
     }
 
     public boolean insertEvent (String userId, String eventName, String eventHappened, String eventDuration) {

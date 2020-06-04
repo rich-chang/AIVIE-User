@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
-import com.aivie.aivie.user.data.sqlite.DBHelper;
+import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class AdverseEventActivity extends AppCompatActivity {
 
-    private DBHelper db;
+    private AdverseEventDBHelper db;
     private String eventName;
     private String eventHappenedDate;
     private String eventDuration;
@@ -34,7 +34,7 @@ public class AdverseEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adverse_event);
 
-        db = new DBHelper(this);
+        db = new AdverseEventDBHelper(this);
         initAdverseEvents();
         initEventReportedDate();
         initEventDuration();

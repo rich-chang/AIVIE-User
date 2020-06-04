@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
-import com.aivie.aivie.user.data.sqlite.DBHelper;
+import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
 import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class TherapyFragment extends Fragment implements View.OnClickListener {
 
-    private DBHelper db;
+    private AdverseEventDBHelper db;
     private View rootView;
 
     @Nullable
@@ -37,7 +37,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         rootView.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
         rootView.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
 
-        db = new DBHelper(getContext());
+        db = new AdverseEventDBHelper(getContext());
 
         setHasOptionsMenu(true);
 
@@ -79,7 +79,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         ll_adverseEvents.addView(ll_adverseEventTitle);
     }
 
-    private void displayAdverseEvent(@NonNull DBHelper db) {
+    private void displayAdverseEvent(@NonNull AdverseEventDBHelper db) {
 
         removeAllEvents();
         setAdverseEventTitle();
