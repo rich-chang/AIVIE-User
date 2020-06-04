@@ -42,14 +42,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="1dp"
-                        app:srcCompat="@drawable/ic_medicine_64dp" />
+                        app:srcCompat="@drawable/ic_medicine" />
 
                     <ImageView
                         android:id="@+id/imageViewAdverseEvent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_adverse_event_64dp" />
+                        app:srcCompat="@drawable/ic_adverse_event" />
+
+                    <ImageView
+                        android:id="@+id/imageViewPatientReport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_patient_report" />
                 </TableRow>
 
                 <TableRow
@@ -72,7 +79,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Adverse Event"
+                        android:text="Adverse\nEvent"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewPatientReport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Patient\nReport"
                         android:textAlignment="center"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -85,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="?android:attr/listDivider" />

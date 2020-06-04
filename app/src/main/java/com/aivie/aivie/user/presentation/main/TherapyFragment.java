@@ -3,6 +3,7 @@ package com.aivie.aivie.user.presentation.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,9 +18,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.sqlite.DBHelper;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
+import com.aivie.aivie.user.presentation.setting.UserProfileActivity;
+import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
+import com.google.firebase.firestore.util.Assert;
 
-public class TherapyFragment extends Fragment {
+import java.util.ArrayList;
+
+public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -28,9 +36,14 @@ public class TherapyFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_therapy, container, false);
 
+        root.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
+        root.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
+
+        DBHelper mydb = new DBHelper(getContext());
+
         setHasOptionsMenu(true);
         setAdverseEventTitle(root);
-        displayAdverseEvent(root);
+        displayAdverseEvent(root, mydb);
 
         return root;
     }
@@ -70,7 +83,19 @@ public class TherapyFragment extends Fragment {
         ll_adverseEvents.addView(ll_adverseEventTitle);
     }
 
-    private void displayAdverseEvent(View view) {
+    private void displayAdverseEvent(View view, @NonNull DBHelper db) {
+
+        ArrayList<String> eventName = db.getAllEventName();
+        ArrayList<String> eventHappenedDate = db.getAllEventHappenedDate();
+        ArrayList<String> eventDuration = db.getAllEventDuration();
+        int rowCount = db.numberOfRows();
+
+        for (int i=rowCount-1; i>=0; i--) {
+            setAdverseEvent(view, eventName.get(i), eventHappenedDate.get(i), eventDuration.get(i));
+        }
+    }
+
+    private void displayAdverseEventDemo(View view) {
         // TODO: Implement sample data by adding LinearLayout in LinearLayout
 
         setAdverseEvent(view, "Headache", "2020-05-03", "2");
@@ -113,6 +138,25 @@ public class TherapyFragment extends Fragment {
         ll_adverseEvent.addView(duration);
 
         ll_adverseEvents.addView(ll_adverseEvent);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.imageViewAdverseEvent:
+            case R.id.textViewAdverseEvent:
+                Intent intent = new Intent(getContext(), AdverseEventActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        displayAdverseEvent(mydb);
     }
 
     @Override
