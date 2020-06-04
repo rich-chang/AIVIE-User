@@ -96,7 +96,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while(!res.isAfterLast()){
             eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_NAME)));
-            Log.i(Constant.TAG, "eventList: " +  eventList.get(eventList.size()-1));
             res.moveToNext();
         }
 
