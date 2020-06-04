@@ -14,11 +14,13 @@ import android.widget.Toast;
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.sqlite.DBHelper;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AdverseEventActivity extends AppCompatActivity {
 
@@ -158,6 +160,9 @@ public class AdverseEventActivity extends AppCompatActivity {
     }
 
     private void saveDataToDb() {
-        db.insertEvent(eventName, eventHappenedDate, eventDuration);
+        db.insertEvent(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
+                eventName,
+                eventHappenedDate,
+                eventDuration);
     }
 }
