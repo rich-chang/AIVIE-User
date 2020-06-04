@@ -20,14 +20,15 @@ import java.util.Locale;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "aivie_user.db";
     private static final String AEH_TABLE_NAME = "AdverseEventHistory";
     private static final String AEH_COLUMN_ID = "id";
-    public static final String AEH_COLUMN_NAME = "name";
-    public static final String AEH_COLUMN_HAPPENED = "happened";   // happened time
-    public static final String AEH_COLUMN_DURATION = "duration";
-    public static final String AEH_COLUMN_REPORTED = "reported";   // now time
+    public static final String AEH_COLUMN_USER_ID = "userId";
+    public static final String AEH_COLUMN_EVENT_NAME = "eventName";
+    public static final String AEH_COLUMN_EVENT_HAPPENED = "eventHappened";   // happened time
+    public static final String AEH_COLUMN_EVENT_DURATION = "eventDuration";
+    public static final String AEH_COLUMN_EVENT_REPORTED = "eventReported";   // now time
     private HashMap hp;
 
     //public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -41,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(
                 "create table AdverseEventHistory " +
-                        "(id integer primary key, name text, happened text, duration text, reported text)"
+                        "(id integer primary key, userId text, eventName text, eventHappened text, eventDuration text, eventReported text)"
         );
     }
 
@@ -52,18 +53,20 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertEvent (String name, String happened, String duration) {
+    public boolean insertEvent (String userId, String eventName, String eventHappened, String eventDuration) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(AEH_COLUMN_NAME, name);
-        contentValues.put(AEH_COLUMN_HAPPENED, happened);
-        contentValues.put(AEH_COLUMN_DURATION, duration);
+        contentValues.put(AEH_COLUMN_USER_ID, userId);
+        contentValues.put(AEH_COLUMN_EVENT_NAME, eventName);
+        contentValues.put(AEH_COLUMN_EVENT_HAPPENED, eventHappened);
+        contentValues.put(AEH_COLUMN_EVENT_DURATION, eventDuration);
 
         SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
-        contentValues.put(AEH_COLUMN_REPORTED, sdf.format(new Date())); // now time
+        contentValues.put(AEH_COLUMN_EVENT_REPORTED, sdf.format(new Date())); // now time
 
+        // TODO: Error handling
         db.insert(AEH_TABLE_NAME, null, contentValues);
 
         return true;
@@ -88,6 +91,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
+    public ArrayList<String> getAlluserId() {
+        ArrayList<String> eventList = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from AdverseEventHistory", null );
+        res.moveToFirst();
+
+        while(!res.isAfterLast()){
+            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_USER_ID)));
+            res.moveToNext();
+        }
+
+        return eventList;
+    }
+
     public ArrayList<String> getAllEventName() {
         ArrayList<String> eventList = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -95,7 +112,7 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(!res.isAfterLast()){
-            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_NAME)));
+            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_EVENT_NAME)));
             res.moveToNext();
         }
 
@@ -109,7 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(!res.isAfterLast()){
-            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_HAPPENED)));
+            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_EVENT_HAPPENED)));
             res.moveToNext();
         }
         return eventList;
@@ -122,7 +139,7 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(!res.isAfterLast()){
-            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_DURATION)));
+            eventList.add(res.getString(res.getColumnIndex(AEH_COLUMN_EVENT_DURATION)));
             res.moveToNext();
         }
         return eventList;
