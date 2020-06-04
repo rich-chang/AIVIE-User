@@ -67,4 +67,8 @@ public interface LoginContract {
     interface GetUserRoleCallback {
         void onSuccess();
     }
+
+    interface GetUserAdverseEvents {
+        void onSuccess(int lastIndexOfAdverseEvents);
+    }
 }
