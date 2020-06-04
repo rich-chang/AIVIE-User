@@ -1,6 +1,7 @@
 package com.aivie.aivie.user.presentation.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileSpImpl;
+import com.aivie.aivie.user.presentation.account.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.type.Color;
 
 import org.w3c.dom.Text;
@@ -58,15 +61,26 @@ public class HomeFragment extends Fragment {
 
     private void getVisitPlan(View view) throws ParseException {
 
-        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
-        ArrayList<String> visitPlan = userProfileSplmpl.getVisitPlan();
+        try {
+            UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
+            ArrayList<String> visitPlan = userProfileSplmpl.getVisitPlan();
 
-        // Re-order
-        Collections.sort(visitPlan);
+            // Re-order
+            Collections.sort(visitPlan);
 
-        // Set text in UI
-        setNextVisitDate(view, visitPlan);
-        setVisitPlan(view, visitPlan);
+            // Set text in UI
+            setNextVisitDate(view, visitPlan);
+            setVisitPlan(view, visitPlan);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // Force to log-out and back to login view
+            FirebaseAuth.getInstance().signOut();
+
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void setNextVisitDate(View view, ArrayList<String> visitPlan) throws ParseException {
