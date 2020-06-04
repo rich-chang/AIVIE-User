@@ -54,8 +54,26 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
                 signupRepository.createTempUserDataInFireDB(new SignupContract.CreateTempDataCallback() {
                     @Override
                     public void onSuccess() {
-                        signupView.ToastLoginResultMsg(result[0]);
-                        clickGoToLogin();
+
+                        signupRepository.initAdverseEventsCollection(new SignupContract.InitUserAdverseEventsCallback() {
+                            @Override
+                            public void onSuccess() {
+                                signupView.ToastLoginResultMsg(result[0]);
+                                clickGoToLogin();
+                            }
+
+                            @Override
+                            public void onFailure() {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                signupView.hideProgressDialog();
+                                signupView.enableSignupBtn();
+                                signupView.enableHaveAccount();
+                            }
+                        });
                     }
 
                     @Override
@@ -65,9 +83,9 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
 
                     @Override
                     public void onComplete() {
-                        signupView.hideProgressDialog();
-                        signupView.enableSignupBtn();
-                        signupView.enableHaveAccount();
+                        //signupView.hideProgressDialog();
+                        //signupView.enableSignupBtn();
+                        //signupView.enableHaveAccount();
                     }
                 });
             }
