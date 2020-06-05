@@ -60,7 +60,7 @@ class LoginRepository {
     void userLogin(Context context, String username, String password, final LoginContract.LoginCallback loginCallback) {
 
         if (username.equals("") || password.equals("")) {
-            loginCallback.onFailure("Email or password can't be empty.");
+            loginCallback.onFailure(null, "Email or password can't be empty.");
             loginCallback.onComplete();
         }
 
@@ -79,30 +79,30 @@ class LoginRepository {
                                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
                                 switch (errorCode) {
                                     case "ERROR_INVALID_EMAIL":
-                                        loginCallback.onFailure("The email address is badly formatted.\n\nPlease try again.");
+                                        loginCallback.onFailure("The email address is badly formatted.", "The email address is badly formatted.\n\nPlease try again.");
                                         break;
                                     case "ERROR_WRONG_PASSWORD":
-                                        loginCallback.onFailure("The password is invalid or the user does not have a password.\n\nPlease try again.");
+                                        loginCallback.onFailure("Password is incorrect ", "The password is invalid or the user does not have a password.\n\nPlease try again.");
                                         break;
                                     case "ERROR_USER_DISABLED":
-                                        loginCallback.onFailure("The user account has been disabled by an administrator.\n\nPlease contact administrator.");
+                                        loginCallback.onFailure(null, "The user account has been disabled by an administrator.\n\nPlease contact administrator.");
                                         break;
                                     case "ERROR_USER_NOT_FOUND":
-                                        loginCallback.onFailure("This user (email) is not found.\n\nPlease sign up a new one.");
+                                        loginCallback.onFailure(null, "This user (email) is not found.\n\nPlease sign up a new one.");
                                         break;
                                     default:
-                                        loginCallback.onFailure(task.getException().toString() + "\n\nPlease try again.");
+                                        loginCallback.onFailure(null, task.getException().toString() + "\n\nPlease try again.");
                                         break;
                                 }
                                 Log.i(Constant.TAG, String.format("signInWithEmail failure (%s) %s", errorCode, task.getException()));
-                                
+
                             } catch (Exception e) {
                                 e.printStackTrace();
 
                                 if (e.toString().contains("com.google.firebase.FirebaseNetworkException")) {
-                                    loginCallback.onFailure("No available internet connection.\nPlease try again.");
+                                    loginCallback.onFailure(null, "No available internet connection.\nPlease try again.");
                                 } else {
-                                    loginCallback.onFailure(e.toString());
+                                    loginCallback.onFailure(null, e.toString());
                                 }
                             }
                         }

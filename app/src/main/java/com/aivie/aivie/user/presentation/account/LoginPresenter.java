@@ -112,9 +112,13 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
             }
 
             @Override
-            public void onFailure(String resultMsg) {
+            public void onFailure(String editTextErr, String resultMsg) {
                 unlockUserInterface();
                 loginView.ToastLoginResultMsg(resultMsg);
+
+                if (editTextErr != null) {
+                    loginView.setLoginPasswordError(editTextErr);
+                }
             }
 
             @Override

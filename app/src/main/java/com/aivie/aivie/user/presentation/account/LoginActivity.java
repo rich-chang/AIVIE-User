@@ -92,6 +92,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
+    public void setLoginEmailError(String message) {
+        ((EditText) findViewById(R.id.username)).setError(message);
+        ((EditText) findViewById(R.id.username)).requestFocus();
+    }
+
+    @Override
     public void enableLoginPassword() {
         findViewById(R.id.password).setEnabled(true);
     }
@@ -99,6 +105,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     public void disableLoginPassword() {
         findViewById(R.id.password).setEnabled(false);
+    }
+
+    @Override
+    public void setLoginPasswordError(String message) {
+        ((EditText) findViewById(R.id.password)).setError(message);
+        ((EditText) findViewById(R.id.username)).requestFocus();
     }
 
     @Override

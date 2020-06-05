@@ -20,9 +20,13 @@ public interface LoginContract {
 
         void disableLoginEmail();
 
+        void setLoginEmailError(String message);
+
         void enableLoginPassword();
 
         void disableLoginPassword();
+
+        void setLoginPasswordError(String message);
 
         void enableLoginBtn();
 
@@ -46,7 +50,7 @@ public interface LoginContract {
 
         void onSuccess(String resultMsg);
 
-        void onFailure(String msg);
+        void onFailure(String editTextErr, String msg);
 
         void onComplete();
     }
