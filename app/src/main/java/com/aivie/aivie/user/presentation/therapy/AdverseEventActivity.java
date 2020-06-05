@@ -36,7 +36,7 @@ import java.util.Objects;
 
 public class AdverseEventActivity extends AppCompatActivity {
 
-    private AdverseEventDBHelper db;
+    private AdverseEventDBHelper dbLocal;
     private String eventName;
     private String eventHappenedDate;
     private String eventDuration;
@@ -46,7 +46,7 @@ public class AdverseEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adverse_event);
 
-        db = new AdverseEventDBHelper(this);
+        dbLocal = new AdverseEventDBHelper(this);
         initAdverseEvents();
         initEventReportedDate();
         initEventDuration();
@@ -173,7 +173,7 @@ public class AdverseEventActivity extends AppCompatActivity {
     }
 
     private void saveDataToDb() {
-        db.insertEvent(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
+        dbLocal.insertEvent(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(),
                 eventName,
                 eventHappenedDate,
                 eventDuration);
