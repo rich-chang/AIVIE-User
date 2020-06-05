@@ -16,12 +16,10 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     private LoginContract.LoginView loginView;
     private LoginRepository loginRepository;
-    //private UserProfileDetail userProfileDetail;
 
     LoginPresenter(LoginContract.LoginView loginView, LoginRepository loginRepository) {
         this.loginView = loginView;
         this.loginRepository = loginRepository;
-        //this.userProfileDetail = null;
 
         InitActivityView();
     }
@@ -29,7 +27,8 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     private void InitActivityView() {
         loginView.setContentView();
         loginView.showSpString();
-        loginView.hideProgressDialog();
+
+        unlockUserInterface();
     }
 
     @Override
@@ -44,9 +43,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     @Override
     public void clickLogin(String username, String password) {
 
-        loginView.showProgressDialog("Logging in ... Please wait");
-        loginView.disableLoginBtn();
-        loginView.disableNeedAccount();
+        lockUserInterface();
 
         loginRepository.userLogin((Context) loginView, username, password, new LoginContract.LoginCallback() {
             @Override
@@ -83,10 +80,6 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                     @Override
                                                                     public void onSuccess(int lastIndexOfAdverseEvents) {
 
-                                                                        loginView.hideProgressDialog();
-                                                                        loginView.enableLoginBtn();
-                                                                        loginView.enableNeedAccount();
-                                                                        
                                                                         UserProfileDetail userProfileDetail = initUserProfileDetail();
                                                                         saveUserProfileToSP(userProfileDetail);
                                                                         saveLastIndexOfAdverseEventsToSp(lastIndexOfAdverseEvents);
@@ -96,6 +89,11 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                         } else {
                                                                             goToSignICF();
                                                                         }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onComplete() {
+                                                                        unlockUserInterface();
                                                                     }
                                                                 });
                                                             }
@@ -115,9 +113,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
             @Override
             public void onFailure(String resultMsg) {
-                loginView.hideProgressDialog();
-                loginView.enableLoginBtn();
-                loginView.enableNeedAccount();
+                unlockUserInterface();
                 loginView.ToastLoginResultMsg(resultMsg);
             }
 
@@ -131,6 +127,22 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     public void clickGoToSignup() {
         Intent intent = new Intent((Context) loginView, SignupActivity.class);
         ((Context) loginView).startActivity(intent);
+    }
+
+    private void lockUserInterface() {
+        loginView.showProgressDialog("signing in ... Please wait");
+        loginView.disableLoginEmail();
+        loginView.disableLoginPassword();
+        loginView.disableLoginBtn();
+        loginView.disableNeedAccount();
+    }
+
+    private void unlockUserInterface() {
+        loginView.hideProgressDialog();
+        loginView.enableLoginEmail();
+        loginView.enableLoginPassword();
+        loginView.enableLoginBtn();
+        loginView.enableNeedAccount();
     }
 
     private void goToSignICF() {

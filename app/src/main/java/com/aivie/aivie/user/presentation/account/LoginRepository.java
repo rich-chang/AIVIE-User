@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -70,11 +71,40 @@ class LoginRepository {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getCurrentUser().getUid();
-                            Log.i(Constant.TAG, "signInWithEmail:success: " + mAuth.getCurrentUser().getEmail() + " " + userId);
+                            Log.i(Constant.TAG, "signInWithEmail success: " + mAuth.getCurrentUser().getEmail() + " " + userId);
                             loginCallback.onSuccess("signInWithEmail:success");
                         } else {
-                            Log.i(Constant.TAG, String.format("signInWithEmail:failure %s", task.getException()));
-                            loginCallback.onFailure(String.format("signInWithEmail:failure %s", task.getException()));
+
+                            try {
+                                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                                switch (errorCode) {
+                                    case "ERROR_INVALID_EMAIL":
+                                        loginCallback.onFailure("The email address is badly formatted.\n\nPlease try again.");
+                                        break;
+                                    case "ERROR_WRONG_PASSWORD":
+                                        loginCallback.onFailure("The password is invalid or the user does not have a password.\n\nPlease try again.");
+                                        break;
+                                    case "ERROR_USER_DISABLED":
+                                        loginCallback.onFailure("The user account has been disabled by an administrator.\n\nPlease contact administrator.");
+                                        break;
+                                    case "ERROR_USER_NOT_FOUND":
+                                        loginCallback.onFailure("This user (email) is not found.\n\nPlease sign up a new one.");
+                                        break;
+                                    default:
+                                        loginCallback.onFailure(task.getException().toString() + "\n\nPlease try again.");
+                                        break;
+                                }
+                                Log.i(Constant.TAG, String.format("signInWithEmail failure (%s) %s", errorCode, task.getException()));
+                                
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                                if (e.toString().contains("com.google.firebase.FirebaseNetworkException")) {
+                                    loginCallback.onFailure("No available internet connection.\nPlease try again.");
+                                } else {
+                                    loginCallback.onFailure(e.toString());
+                                }
+                            }
                         }
                         loginCallback.onComplete();
                     }
