@@ -51,7 +51,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
         loginRepository.userLogin((Context) loginView, username, password, new LoginContract.LoginCallback() {
             @Override
             public void onSuccess(String resultMsg) {
-                
+
                 loginRepository.getUserProfile(new LoginContract.GetUserProfileCallback() {
                     @Override
                     public void onSuccess(final DocumentSnapshot documentUser) {
@@ -86,7 +86,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                         loginView.hideProgressDialog();
                                                                         loginView.enableLoginBtn();
                                                                         loginView.enableNeedAccount();
-
+                                                                        
                                                                         UserProfileDetail userProfileDetail = initUserProfileDetail();
                                                                         saveUserProfileToSP(userProfileDetail);
                                                                         saveLastIndexOfAdverseEventsToSp(lastIndexOfAdverseEvents);
@@ -115,12 +115,14 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
             @Override
             public void onFailure(String resultMsg) {
+                loginView.hideProgressDialog();
+                loginView.enableLoginBtn();
+                loginView.enableNeedAccount();
                 loginView.ToastLoginResultMsg(resultMsg);
             }
 
             @Override
             public void onComplete() {
-                //
             }
         });
     }
