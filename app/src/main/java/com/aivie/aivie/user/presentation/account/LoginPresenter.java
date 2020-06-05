@@ -114,7 +114,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
             @Override
             public void onFailure(String resultMsg) {
                 unlockUserInterface();
-                loginView.ToastLoginResultMsg(resultMsg + "\n\nPlease try again");
+                loginView.ToastLoginResultMsg(resultMsg);
             }
 
             @Override
