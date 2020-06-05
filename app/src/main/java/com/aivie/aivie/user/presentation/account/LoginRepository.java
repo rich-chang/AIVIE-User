@@ -259,6 +259,9 @@ class LoginRepository {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+
+                    removeAllAdverseEventsOnLocal();
+
                     for (QueryDocumentSnapshot document : task.getResult()) {
 
                         getUserAdverseEvents.onSuccess(Integer.parseInt(document.getId()));
@@ -279,5 +282,9 @@ class LoginRepository {
 
     private void saveUserAdverseEventsToLocalDb(String userId, String eventName, String eventHappened, String eventDuration) {
         dbLocal.insertEvent(userId, eventName, eventHappened, eventDuration);
+    }
+
+    private void removeAllAdverseEventsOnLocal() {
+        dbLocal.removeAll();
     }
 }
