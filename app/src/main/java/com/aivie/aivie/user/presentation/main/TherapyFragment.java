@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class TherapyFragment extends Fragment implements View.OnClickListener {
 
-    private AdverseEventDBHelper db;
+    private AdverseEventDBHelper dbLocal;
     private View rootView;
 
     @Nullable
@@ -38,14 +38,14 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         rootView.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
         rootView.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
 
-        db = new AdverseEventDBHelper(getContext());
+        dbLocal = new AdverseEventDBHelper(getContext());
 
         setHasOptionsMenu(true);
 
         return rootView;
     }
 
-    private void setAdverseEventTitle() {
+    private void setAdverseEventTitleOnView() {
         LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
         LinearLayout ll_adverseEventTitle = new LinearLayout(getContext());
 
@@ -82,8 +82,8 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private void displayAdverseEvent(@NonNull AdverseEventDBHelper db) {
 
-        removeAllEvents();
-        setAdverseEventTitle();
+        removeAllEventsOnView();
+        setAdverseEventTitleOnView();
         authCheckDatabase();
 
         ArrayList<String> eventName = db.getAllEventName();
@@ -92,7 +92,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         int rowCount = db.numberOfRows();
 
         for (int i=rowCount-1; i>=0; i--) {
-            setAdverseEvent(eventName.get(i), eventHappenedDate.get(i), eventDuration.get(i));
+            setAdverseEventOnView(eventName.get(i), eventHappenedDate.get(i), eventDuration.get(i));
         }
     }
 
@@ -107,7 +107,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         setAdverseEvent("Loss Appetite", "2020-05-31", "1");
     }
 
-    private void removeAllEvents() {
+    private void removeAllEventsOnView() {
 
         LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
 
@@ -118,16 +118,16 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private void authCheckDatabase() {
 
-        if (db.numberOfRows() > 0) {
+        if (dbLocal.numberOfRows() > 0) {
 
-            ArrayList<String> eventUserId = db.getAlluserId();
+            ArrayList<String> eventUserId = dbLocal.getAlluserId();
             if (!FirebaseAuth.getInstance().getCurrentUser().getUid().equals(eventUserId.get(0))) {
-                db.removeAll();
+                dbLocal.removeAll();
             }
         }
     }
 
-    private void setAdverseEvent (String eventName, String reportedDate, String eventDuration) {
+    private void setAdverseEventOnView (String eventName, String reportedDate, String eventDuration) {
 
         LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
         LinearLayout ll_adverseEvent = new LinearLayout(getContext());
@@ -176,7 +176,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
-        displayAdverseEvent(db);
+        displayAdverseEvent(dbLocal);
     }
 
     @Override
