@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
 import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,6 +31,7 @@ class LoginRepository {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private AdverseEventDBHelper dbLocal;
     private String userId;
     private String firstName;
     private String lastName;
@@ -48,9 +50,10 @@ class LoginRepository {
     private String sitePhone;
     private ArrayList<String> visitPlan = new ArrayList<String>();
 
-    LoginRepository() {
+    LoginRepository(Context context) {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        dbLocal = new AdverseEventDBHelper(context);
     }
 
     void userLogin(Context context, String username, String password, final LoginContract.LoginCallback loginCallback) {
@@ -257,15 +260,24 @@ class LoginRepository {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        getUserAdverseEvents.onSuccess(Integer.valueOf(document.getId()));
-                        //TODO: Save events to local sqlite database when every time login
-                        //TODO: For known isseu: switch account login and back to origainl account, local sqlite will be clean.
-                        //TODO: Not yet implemnt sync from online
+
+                        getUserAdverseEvents.onSuccess(Integer.parseInt(document.getId()));
+
+                        if (Integer.parseInt(document.getId()) > 0) {
+                            saveUserAdverseEventsToLocalDb(userId,
+                                    document.get(Constant.FIRE_AEH_COLUMN_EVENT_NAME).toString(),
+                                    document.get(Constant.FIRE_AEH_COLUMN_EVENT_HAPPENED).toString(),
+                                    document.get(Constant.FIRE_AEH_COLUMN_EVENT_DURATION).toString());
+                        }
                     }
                 } else {
                     Log.d(Constant.TAG, "getUserAdverseEvents", task.getException());
                 }
             }
         });
+    }
+
+    private void saveUserAdverseEventsToLocalDb(String userId, String eventName, String eventHappened, String eventDuration) {
+        dbLocal.insertEvent(userId, eventName, eventHappened, eventDuration);
     }
 }
