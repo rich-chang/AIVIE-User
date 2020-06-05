@@ -16,6 +16,14 @@ public interface LoginContract {
 
         void hideProgressDialog();
 
+        void enableLoginEmail();
+
+        void disableLoginEmail();
+
+        void enableLoginPassword();
+
+        void disableLoginPassword();
+
         void enableLoginBtn();
 
         void disableLoginBtn();
@@ -70,5 +78,7 @@ public interface LoginContract {
 
     interface GetUserAdverseEvents {
         void onSuccess(int lastIndexOfAdverseEvents);
+
+        void onComplete();
     }
 }

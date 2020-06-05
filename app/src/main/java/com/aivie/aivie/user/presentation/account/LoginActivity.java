@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
@@ -67,8 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     @Override
     public void ToastLoginResultMsg(String msg) {
-        //Log.d(Constant.TAG, "ToastLoginResultMsg: "+msg);
-        //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -79,6 +79,26 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     public void hideProgressDialog() {
         ProgressDialogUtil.dismiss();
+    }
+
+    @Override
+    public void enableLoginEmail() {
+        findViewById(R.id.username).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginEmail() {
+        findViewById(R.id.username).setEnabled(false);
+    }
+
+    @Override
+    public void enableLoginPassword() {
+        findViewById(R.id.password).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginPassword() {
+        findViewById(R.id.password).setEnabled(false);
     }
 
     @Override
