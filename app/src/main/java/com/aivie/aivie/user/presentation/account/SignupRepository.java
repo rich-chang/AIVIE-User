@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
@@ -43,7 +44,7 @@ class SignupRepository {
     void userSignup(Context context, String username, String password, final SignupContract.SignupCallback signupCallback) {
 
         if (username.equals("") || password.equals("")) {
-            signupCallback.onFailure("Email or password can't be empty.");
+            signupCallback.onFailure(null, "Email or password can't be empty.");
             signupCallback.onComplete();
             return;
         }
@@ -55,9 +56,30 @@ class SignupRepository {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             userId = mAuth.getCurrentUser().getUid();
-                            signupCallback.onSuccess("Success");
+                            signupCallback.onSuccess("Create account successfully.");
                         } else {
-                            signupCallback.onFailure(String.format("Signup failure : %s", task.getException()));
+
+                            try {
+                                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                                switch (errorCode) {
+                                    case "ERROR_INVALID_EMAIL":
+                                        signupCallback.onFailure("The email address is badly formatted.", "The email address is badly formatted.\n\nPlease try again.");
+                                        break;
+                                    default:
+                                        signupCallback.onFailure(null, task.getException().toString() + "\n\nPlease try again.");
+                                        break;
+                                }
+                                Log.i(Constant.TAG, String.format("signInWithEmail failure (%s) %s", errorCode, task.getException()));
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                                if (e.toString().contains("com.google.firebase.FirebaseNetworkException")) {
+                                    signupCallback.onFailure(null, "No available internet connection.\nPlease try again.");
+                                } else {
+                                    signupCallback.onFailure(null, e.toString());
+                                }
+                            }
                         }
                         signupCallback.onComplete();
                     }
@@ -92,15 +114,14 @@ class SignupRepository {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        if (Constant.DEBUG) Log.d(Constant.TAG, "DocumentSnapshot successfully written!");
-                        createTempDataCallback.onSuccess();
+                        createTempDataCallback.onSuccess("User profile has been initialized successfully.");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
 
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        if (Constant.DEBUG) Log.w(Constant.TAG, "Error writing document", e);
+                        createTempDataCallback.onFailure(e.toString());
                     }
                 })
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -128,16 +149,14 @@ class SignupRepository {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        if (Constant.DEBUG) Log.d(Constant.TAG, "initAdverseEventsCollection: successfully written!");
-                        initUserAdverseEventsCallback.onSuccess();
+                        initUserAdverseEventsCallback.onSuccess("User adverse events databsed has been initialized successfully.");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
 
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        if (Constant.DEBUG) Log.w(Constant.TAG, "initAdverseEventsCollection: Error writing document", e);
-                        initUserAdverseEventsCallback.onFailure();
+                        initUserAdverseEventsCallback.onFailure(e.toString());
                     }
                 })
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
