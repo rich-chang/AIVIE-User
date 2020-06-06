@@ -2,6 +2,11 @@ package com.aivie.aivie.user.presentation.account;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class SignupPresenter implements SignupContract.SignupUserActions {
 
@@ -18,6 +23,8 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
     private void InitActivityView() {
         signupView.setContentView();
         signupView.showSpString();
+
+        unlockUserInterface();
     }
 
     @Override
@@ -28,66 +35,59 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
     @Override
     public void clickSignup(String username, String password) {
 
-        signupView.showProgressDialog("Signing up ... Please wait");
-        signupView.disableSignupBtn();
-        signupView.disableHaveAccount();
-
-        final String[] result = {""};
+        lockUserInterface();
 
         signupRepository.userSignup((Context) signupView, username, password, new SignupContract.SignupCallback() {
             @Override
             public void onSuccess(String resultMsg) {
-                result[0] = resultMsg;
-            }
-
-            @Override
-            public void onFailure(String resultMsg) {
-                signupView.ToastLoginResultMsg(resultMsg);
-                signupView.hideProgressDialog();
-                signupView.enableSignupBtn();
-                signupView.enableHaveAccount();
-            }
-
-            @Override
-            public void onComplete() {
 
                 signupRepository.createTempUserDataInFireDB(new SignupContract.CreateTempDataCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess(String resultMsg) {
 
                         signupRepository.initAdverseEventsCollection(new SignupContract.InitUserAdverseEventsCallback() {
                             @Override
-                            public void onSuccess() {
-                                signupView.ToastLoginResultMsg(result[0]);
+                            public void onSuccess(String resultMsg) {
+                                signupView.ToastLoginResultMsg(resultMsg);
+                                clearPreviousToken();
                                 clickGoToLogin();
                             }
 
                             @Override
-                            public void onFailure() {
-
+                            public void onFailure(String resultMsg) {
+                                signupView.ToastLoginResultMsg(resultMsg);
                             }
 
                             @Override
                             public void onComplete() {
-                                signupView.hideProgressDialog();
-                                signupView.enableSignupBtn();
-                                signupView.enableHaveAccount();
+                                unlockUserInterface();
                             }
                         });
                     }
 
                     @Override
-                    public void onFailure() {
-                        signupView.ToastLoginResultMsg(result[0]);
+                    public void onFailure(String resultMsg) {
+                        signupView.ToastLoginResultMsg(resultMsg);
+                        unlockUserInterface();
                     }
 
                     @Override
                     public void onComplete() {
-                        //signupView.hideProgressDialog();
-                        //signupView.enableSignupBtn();
-                        //signupView.enableHaveAccount();
                     }
                 });
+            }
+
+            @Override
+            public void onFailure(String editTextErr, String resultMsg) {
+                signupView.ToastLoginResultMsg(resultMsg);
+                if (editTextErr != null) {
+                    signupView.setLoginEmailError(editTextErr);
+                }
+                unlockUserInterface();
+            }
+
+            @Override
+            public void onComplete() {
             }
         });
     }
@@ -98,4 +98,23 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
         ((Context) signupView).startActivity(intent);
     }
 
+    private void clearPreviousToken() {
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    private void lockUserInterface() {
+        signupView.showProgressDialog("Signing up ... Please wait");
+        signupView.disableLoginEmail();
+        signupView.disableLoginPassword();
+        signupView.disableSignupBtn();
+        signupView.disableHaveAccount();
+    }
+
+    private void unlockUserInterface() {
+        signupView.hideProgressDialog();
+        signupView.enableLoginEmail();
+        signupView.enableLoginPassword();
+        signupView.enableSignupBtn();
+        signupView.enableHaveAccount();
+    }
 }

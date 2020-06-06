@@ -90,6 +90,32 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
     }
 
     @Override
+    public void enableLoginEmail() {
+        findViewById(R.id.username).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginEmail() {
+        findViewById(R.id.username).setEnabled(false);
+    }
+
+    @Override
+    public void setLoginEmailError(String message) {
+        ((EditText) findViewById(R.id.username)).setError(message);
+        ((EditText) findViewById(R.id.username)).requestFocus();
+    }
+
+    @Override
+    public void enableLoginPassword() {
+        findViewById(R.id.password).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginPassword() {
+        findViewById(R.id.password).setEnabled(false);
+    }
+
+    @Override
     public void enableSignupBtn() {
         findViewById(R.id.signup).setEnabled(true);
     }
