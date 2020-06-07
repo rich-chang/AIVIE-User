@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
         displayTeamInfo(root);
 
         root.findViewById(R.id.buttonCallContact).setOnClickListener(this);
+        root.findViewById(R.id.textViewHealthEduVideo).setOnClickListener(this);
 
         return root;
     }
@@ -48,7 +50,6 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.buttonCallContact:
-
                 if (!hasCallPermission()) {
 
                     ActivityCompat.requestPermissions(getActivity(),
@@ -57,6 +58,11 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
                 } else {
                     callContactPhone();
                 }
+                break;
+
+            case R.id.textViewHealthEduVideo:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + "Rck-whljqTo"));
+                startActivity(intent);
                 break;
         }
     }
