@@ -157,10 +157,6 @@ public class AdverseEventActivity extends AppCompatActivity {
         });
     }
 
-    public void btnClickCancel(View view) {
-        finish();
-    }
-
     public void btnClickConfirm(View view) {
 
         if (eventName != null && eventHappenedDate != null && eventDuration != null) {
