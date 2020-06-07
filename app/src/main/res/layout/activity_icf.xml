@@ -46,11 +46,30 @@
                 android:layout_marginEnd="8dp"
                 android:text="We are asking you to be in a research study.  The purpose of this consent form is to give you the information you will need to help you decide whether to be in the study or not.  Please read the form carefully.  You may ask questions about why we are doing the research,what we would ask you to do,the possible risks and benefits,your rights as a volunteer,and anything else about the research or this form that is not clear.  When we have answered all your questions, you can decide if you want to be in the study or not.  This process is called “informed consent”.  We will give you a copy of this form for your records.\nA person who takes part in a research study is called a research or study subject.  In this consent form “you” always refers to the research (study) subject.  If you are a parent, legal guardian or legally authorized representative, as you read this consent form remember that “you” means the research (study) subject." />
 
+            <TextView
+                android:id="@+id/textViewParaTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="THE MY LIFE OUR FUTURE PROJECT AND THIS STUDY"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewParagraph2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Special proteins in your blood help you to make a clot and stop bleeding when you are cut or hurt. These proteins are called clotting factors. Hemophilia happens when there is a change or mutation in a gene (small piece of your DNA) that makes a clotting factor. A laboratory can do genotyping, which is also called genetic testing. The lab looks at your DNA to see what change in your genes (known as a genetic mutation) is causing your hemophilia.\n\nMy Life Our Future is a national project which studies hemophilia. The partners who set up this project are the Puget Sound Blood Center (PSBC), the American Thrombosis and Hemostasis Network (ATHN), the National Hemophilia Foundation (NHF), and Biogen Idec Hemophilia(BIH). The My Life Our Future project has two parts you can choose from:\n\nPart 1. Hemophilia Genotyping: You are eligible if you are a patient with hemophilia, or a family member, who lives in the United States. One purpose of this study is to provide genotype testing done at no cost to you. We expect about 5000 subjects with hemophilia A and B to take part. They are seen at about 130 Hemophilia Treatment Centers (HTCs). This genotyping test is done the same as if your doctor had ordered it through a HTC or hospital lab. You or your insurance carrier will not be billed for the test. Neither you nor your insurance company will be charged for voluntarily providing a sample for genotyping.\n\nIf you only want the genotyping test and are not interested in learning more about the second part of this project, a research repository, you may stop here.\n\nPart 2. Data and Sample Research Repository. Another purpose of this project is to build a Research Repository. A repository is like a bank. Blood or tissue samples and health information from many participants will go into this bank. They can be taken out and used by researchers both now, and in the future. Researchers can use the repository to better understand hemophilia A and B, and other medical conditions. We will put your blood samples, health information, and genotype information (data) into the repository. Neither you nor your insurance company will be charged for voluntarily providing a sample for the repository. We expect to enroll about [insert number here] subjects from [insert HTC here] in this repository.\n\n" />
+
             <CheckBox
                 android:id="@+id/checkBoxAgreement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:text="I AGREE the terms and conditions of use."
                 android:textSize="16sp" />
 
@@ -59,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginTop="24dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/signature_placeholder" />
 
             <Button
