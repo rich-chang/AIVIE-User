@@ -22,31 +22,50 @@ import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private AdverseEventDBHelper dbLocal;
-    private View rootView;
 
+    // Initialized any value but view
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        dbLocal = new AdverseEventDBHelper(getContext());
+        setHasOptionsMenu(true);
+    }
+
+    // Initialize view by inflater
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_therapy, container, false);
+    }
 
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        rootView = inflater.inflate(R.layout.fragment_therapy, container, false);
+    // Fragment has view and ready to start
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        rootView.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
-        rootView.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
+        View view = getView();
+        if (view != null) {
+            view.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
+            view.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
+        }
+    }
 
-        dbLocal = new AdverseEventDBHelper(getContext());
+    // Fragment has view and visible. Activity is active
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        setHasOptionsMenu(true);
-
-        return rootView;
+        displayAdverseEvent(dbLocal);
     }
 
     private void setAdverseEventTitleOnView() {
-        LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
+        LinearLayout ll_adverseEvents = (LinearLayout) Objects.requireNonNull(getView()).findViewById(R.id.ll_adverseEvents);
         LinearLayout ll_adverseEventTitle = new LinearLayout(getContext());
 
         ll_adverseEventTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -98,7 +117,6 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private void displayAdverseEventDemo() {
         // TODO: Implement sample data by adding LinearLayout in LinearLayout
-
         setAdverseEventOnView("Headache", "2020-05-03", "2");
         setAdverseEventOnView("Loss Appetite", "2020-05-11", "1");
         setAdverseEventOnView("Tremer", "2020-05-15", "3");
@@ -109,7 +127,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private void removeAllEventsOnView() {
 
-        LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
+        LinearLayout ll_adverseEvents = (LinearLayout) Objects.requireNonNull(getView()).findViewById(R.id.ll_adverseEvents);
 
         if (ll_adverseEvents.getChildCount() > 0) {
             ll_adverseEvents.removeAllViews();
@@ -129,7 +147,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
     private void setAdverseEventOnView (String eventName, String reportedDate, String eventDuration) {
 
-        LinearLayout ll_adverseEvents = (LinearLayout) rootView.findViewById(R.id.ll_adverseEvents);
+        LinearLayout ll_adverseEvents = (LinearLayout) Objects.requireNonNull(getView()).findViewById(R.id.ll_adverseEvents);
         LinearLayout ll_adverseEvent = new LinearLayout(getContext());
 
         ll_adverseEvent.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -170,13 +188,6 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        displayAdverseEvent(dbLocal);
     }
 
     @Override
