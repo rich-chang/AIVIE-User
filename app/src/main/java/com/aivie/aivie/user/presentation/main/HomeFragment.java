@@ -37,20 +37,26 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
-        showUserName(root);
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        try {
-            getVisitPlan(root);
+        View view = getView();
+        if (view != null) {
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+            showUserName(view);
+
+            try {
+                getVisitPlan(view);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-
-        return root;
     }
 
     private void showUserName(View view) {
