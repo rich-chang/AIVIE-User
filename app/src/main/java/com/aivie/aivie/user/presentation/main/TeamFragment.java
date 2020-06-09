@@ -33,16 +33,22 @@ public class TeamFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_team, container, false);
+        return inflater.inflate(R.layout.fragment_team, container, false);
+    }
 
-        displayTeamInfo(root);
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        root.findViewById(R.id.buttonCallContact).setOnClickListener(this);
-        root.findViewById(R.id.textViewHealthEduVideo).setOnClickListener(this);
+        View view = getView();
+        if (view != null) {
 
-        return root;
+            displayTeamInfo(view);
+
+            view.findViewById(R.id.buttonCallContact).setOnClickListener(this);
+            view.findViewById(R.id.textViewHealthEduVideo).setOnClickListener(this);
+        }
     }
 
     @Override
