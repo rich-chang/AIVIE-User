@@ -159,6 +159,8 @@ public class AdverseEventActivity extends AppCompatActivity {
 
     public void btnClickConfirm(View view) {
 
+        findViewById(R.id.buttonConfirm).setEnabled(false);
+
         if (eventName != null && eventHappenedDate != null && eventDuration != null) {
             saveDataToDb();
             saveDataToFirebase();
@@ -166,6 +168,7 @@ public class AdverseEventActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Do not leave empty field", Toast.LENGTH_SHORT).show();
         }
+        findViewById(R.id.buttonConfirm).setEnabled(true);
     }
 
     private void saveDataToDb() {
