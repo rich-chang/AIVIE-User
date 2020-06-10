@@ -2,14 +2,17 @@ package com.aivie.aivie.user.presentation.account;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 public class SignupPresenter implements SignupContract.SignupUserActions {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     private SignupRepository signupRepository;
     private SignupContract.SignupView signupView;
 
@@ -23,6 +26,7 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
     private void InitActivityView() {
         signupView.setContentView();
         signupView.showSpString();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance((Context) signupView);
 
         unlockUserInterface();
     }
@@ -34,6 +38,10 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
 
     @Override
     public void clickSignup(String username, String password) {
+
+        Bundle params = new Bundle();
+        params.putString("username", username);
+        mFirebaseAnalytics.logEvent("sign_up", params);
 
         lockUserInterface();
 
