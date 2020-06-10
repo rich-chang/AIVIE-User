@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 
 public class SignupActivity extends AppCompatActivity implements SignupContract.SignupView {
 
@@ -74,18 +76,43 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
 
     @Override
     public void ToastLoginResultMsg(String msg) {
-        //Log.d(Constant.TAG, "ToastLoginResultMsg: "+msg);
-        //Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showProgress() {
-        findViewById(R.id.progressBarSignup).setVisibility(View.VISIBLE);
+    public void showProgressDialog(String message) {
+        ProgressDialogUtil.showProgressDialog(this, message);
     }
 
     @Override
-    public void hideProgress() {
-        findViewById(R.id.progressBarSignup).setVisibility(View.GONE);
+    public void hideProgressDialog() {
+        ProgressDialogUtil.dismiss();
+    }
+
+    @Override
+    public void enableLoginEmail() {
+        findViewById(R.id.username).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginEmail() {
+        findViewById(R.id.username).setEnabled(false);
+    }
+
+    @Override
+    public void setLoginEmailError(String message) {
+        ((EditText) findViewById(R.id.username)).setError(message);
+        ((EditText) findViewById(R.id.username)).requestFocus();
+    }
+
+    @Override
+    public void enableLoginPassword() {
+        findViewById(R.id.password).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginPassword() {
+        findViewById(R.id.password).setEnabled(false);
     }
 
     @Override

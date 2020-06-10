@@ -3,6 +3,8 @@ package com.aivie.aivie.user.data.user;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class UserProfileDetail implements Parcelable {
 
     private String firstName;
@@ -15,11 +17,12 @@ public class UserProfileDetail implements Parcelable {
     private String subjectNum;
     private String role;
     private String patientOfStudy;
-    private boolean isIcfSigned;
+    private boolean hasUnsignedIcf;
     private String siteId;
     private String siteDoctor;
     private String siteSC;
     private String sitePhone;
+    private ArrayList<String> visitPlan = new ArrayList<String>();
 
     /* everything below here is for implementing Parcelable */
 
@@ -43,7 +46,7 @@ public class UserProfileDetail implements Parcelable {
         out.writeString(this.subjectNum);
         out.writeString(this.role);
         out.writeString(this.patientOfStudy);
-        out.writeByte(this.isIcfSigned? (byte) 1: (byte) 0);
+        out.writeByte(this.hasUnsignedIcf? (byte) 1: (byte) 0);
         out.writeString(this.siteId);
         out.writeString(this.siteDoctor);
         out.writeString(this.siteSC);
@@ -72,7 +75,7 @@ public class UserProfileDetail implements Parcelable {
         this.subjectNum = in.readString();
         this.role = in.readString();
         this.patientOfStudy = in.readString();
-        this.isIcfSigned = in.readByte() != 0;
+        this.hasUnsignedIcf = in.readByte() != 0;
         this.siteId = in.readString();
         this.siteDoctor = in.readString();
         this.siteSC = in.readString();
@@ -83,8 +86,8 @@ public class UserProfileDetail implements Parcelable {
 
     public UserProfileDetail(final String firstName, String lastName, String displayName, String dateOfBirth,
                              String gender, String race, String ethnicity,
-                             String subjectNum, String role, String patientOfStudy, boolean eIcfSigned,
-                             String siteId, String siteDoctor, String siteSC, String sitePhone) {
+                             String subjectNum, String role, String patientOfStudy, boolean hasUnsignedIcf,
+                             String siteId, String siteDoctor, String siteSC, String sitePhone, ArrayList<String> visitPlan) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,71 +99,80 @@ public class UserProfileDetail implements Parcelable {
         this.subjectNum = subjectNum;
         this.role = role;
         this.patientOfStudy = patientOfStudy;
-        this.isIcfSigned = eIcfSigned;
+        this.hasUnsignedIcf = hasUnsignedIcf;
         this.siteId = siteId;
         this.siteDoctor = siteDoctor;
         this.siteSC = siteSC;
         this.sitePhone = sitePhone;
+        this.visitPlan = visitPlan;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
+    String getLastName() {
         return lastName;
     }
 
-    public String getDisplayName() {
+    String getDisplayName() {
         return displayName;
     }
 
-    public String getDateOfBirth() {
+    String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public String getGender() {
+    String getGender() {
         return gender;
     }
 
-    public String getRace() {
+    String getRace() {
         return race;
     }
 
-    public String getEthnicity() {
+    String getEthnicity() {
         return ethnicity;
     }
 
-    public String getSubjectNum() {
+    String getSubjectNum() {
         return subjectNum;
     }
 
-    public String getRole() {
+    String getRole() {
         return role;
     }
 
-    public String getPatientOfStudy() {
+    String getPatientOfStudy() {
         return patientOfStudy;
     }
 
-    public boolean iseIcfSigned() {
-        return isIcfSigned;
+    public boolean hasUnsignedIcf() {
+        return hasUnsignedIcf;
     }
 
-    public String getSiteId() {
+    String getSiteId() {
         return siteId;
     }
 
-    public String getSiteDoctor() {
+    String getSiteDoctor() {
         return siteDoctor;
     }
 
-    public String getSiteSC() {
+    String getSiteSC() {
         return siteSC;
     }
 
-    public String getSitePhone() {
+    String getSitePhone() {
         return sitePhone;
+    }
+
+    public void updateIcfSigned(boolean hasUnsignedIcf) {
+        this.hasUnsignedIcf = hasUnsignedIcf;
+    }
+
+    ArrayList<String> getVisitPlan() {
+        return visitPlan;
     }
 }
 

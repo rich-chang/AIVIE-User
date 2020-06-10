@@ -12,9 +12,21 @@ public interface LoginContract {
 
         void ToastLoginResultMsg(String msg);
 
-        void showProgress();
+        void showProgressDialog(String message);
 
-        void hideProgress();
+        void hideProgressDialog();
+
+        void enableLoginEmail();
+
+        void disableLoginEmail();
+
+        void setLoginEmailError(String message);
+
+        void enableLoginPassword();
+
+        void disableLoginPassword();
+
+        void setLoginPasswordError(String message);
 
         void enableLoginBtn();
 
@@ -27,6 +39,8 @@ public interface LoginContract {
 
     interface LoginUserActions {
 
+        void checkIfLogin();
+
         void clickLogin(String username, String password);
 
         void clickGoToSignup();
@@ -36,7 +50,7 @@ public interface LoginContract {
 
         void onSuccess(String resultMsg);
 
-        void onFailure(String msg);
+        void onFailure(String editTextErr, String msg);
 
         void onComplete();
     }
@@ -64,5 +78,11 @@ public interface LoginContract {
 
     interface GetUserRoleCallback {
         void onSuccess();
+    }
+
+    interface GetUserAdverseEvents {
+        void onSuccess(int lastIndexOfAdverseEvents);
+
+        void onComplete();
     }
 }

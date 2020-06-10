@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_progress"
+        android:icon="@drawable/ic_progress_black_24dp"
+        android:title="Progress" />
+
+    <item
+        android:id="@+id/navigation_team"
+        android:icon="@drawable/ic_team_black_24dp"
+        android:title="Team" />
+
+    <item
+        android:id="@+id/navigation_therapy"
+        android:icon="@drawable/ic_drug_black_24dp"
+        android:title="MyTherapy" />
+
+</menu>

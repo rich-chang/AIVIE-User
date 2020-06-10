@@ -10,9 +10,19 @@ public interface SignupContract {
 
         void ToastLoginResultMsg(String msg);
 
-        void showProgress();
+        void showProgressDialog(String message);
 
-        void hideProgress();
+        void hideProgressDialog();
+
+        void enableLoginEmail();
+
+        void disableLoginEmail();
+
+        void setLoginEmailError(String message);
+
+        void enableLoginPassword();
+
+        void disableLoginPassword();
 
         void enableSignupBtn();
 
@@ -36,16 +46,34 @@ public interface SignupContract {
 
         void onSuccess(String resultMsg);
 
-        void onFailure(String resultMsg);
+        void onFailure(String editTextErr, String resultMsg);
 
         void onComplete();
     }
 
     interface CreateTempDataCallback {
 
-        void onSuccess();
+        void onSuccess(String resultMsg);
 
-        void onFailure();
+        void onFailure(String resultMsg);
+
+        void onComplete();
+    }
+
+    interface InitUserAdverseEventsCallback {
+
+        void onSuccess(String resultMsg);
+
+        void onFailure(String resultMsg);
+
+        void onComplete();
+    }
+
+    interface InitUserIcfHistoryCallback {
+
+        void onSuccess(String resultMsg);
+
+        void onFailure(String resultMsg);
 
         void onComplete();
     }

@@ -1,5 +1,6 @@
 package com.aivie.aivie.user.presentation.icf;
 
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 public interface SignatureContract {
@@ -39,9 +40,28 @@ public interface SignatureContract {
     }
 
     interface uploadToFireStorageCallback {
+
         void onSuccess(String downloadUri);
 
         void onFailure(String result);
+
+        void onComplete();
+    }
+
+    interface updateSignedFlagCallback {
+
+        void onSuccess();
+
+        void onFailure(String result);
+
+        void onComplete();
+    }
+
+    interface InitUserIcfHistoryCallback {
+
+        void onSuccess(String resultMsg);
+
+        void onFailure(String resultMsg);
 
         void onComplete();
     }

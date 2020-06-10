@@ -2,17 +2,12 @@ package com.aivie.aivie.user.presentation.icf;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.aivie.aivie.user.R;
-import com.aivie.aivie.user.data.Constant;
 import com.bumptech.glide.Glide;
 
 public class IcfActivity extends AppCompatActivity implements IcfContract.IcfView {
@@ -51,6 +46,11 @@ public class IcfActivity extends AppCompatActivity implements IcfContract.IcfVie
                 icfPresenter.clickSign();
             }
         });
+    }
+
+    public void clickConfirm(View view) {
+        icfPresenter.clickConfirm();
+        //finish();
     }
 
     @Override
@@ -95,5 +95,10 @@ public class IcfActivity extends AppCompatActivity implements IcfContract.IcfVie
     @Override
     public void setCheckAgreement(boolean checked) {
         ((CheckBox) findViewById(R.id.checkBoxAgreement)).setChecked(checked);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //moveTaskToBack(true); // disable going back to the MainActivity
     }
 }

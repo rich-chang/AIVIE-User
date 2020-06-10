@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 

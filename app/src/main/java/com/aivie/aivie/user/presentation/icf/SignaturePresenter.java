@@ -2,9 +2,13 @@ package com.aivie.aivie.user.presentation.icf;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 
 import com.aivie.aivie.user.data.Constant;
+import com.aivie.aivie.user.data.user.UserProfileDetail;
+import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.github.gcacace.signaturepad.views.SignaturePad;
+import com.google.firebase.firestore.auth.User;
 
 class SignaturePresenter implements SignatureContract.signatureAction {
 
@@ -50,8 +54,44 @@ class SignaturePresenter implements SignatureContract.signatureAction {
 
         signatureRepository.SaveImgToFirebase(mSignaturePad, new SignatureContract.uploadToFireStorageCallback() {
             @Override
-            public void onSuccess(String downloadUri) {
-                goToIcfActivity(downloadUri);
+            public void onSuccess(final String downloadUri) {
+
+                signatureRepository.updateIcfFlagInUserProfile(false, new SignatureContract.updateSignedFlagCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                        updateFlagInUserProfile();
+
+                        // TODO: Get next ICF doc number/name. Hardcoding for now.
+                        signatureRepository.updateIcfHistory(downloadUri, "1", new SignatureContract.InitUserIcfHistoryCallback() {
+                            @Override
+                            public void onSuccess(String resultMsg) {
+                                goToIcfActivity(downloadUri);
+                            }
+
+                            @Override
+                            public void onFailure(String resultMsg) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                signatureView.ToastLoginResultMsg("Signature saved.");
+                                signatureView.enablePad();
+                                signatureView.enableBtnClear();
+                                signatureView.enableBtnConfirm();
+                                signatureView.hideProgressDialog();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(String result) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
             }
 
             @Override
@@ -60,13 +100,17 @@ class SignaturePresenter implements SignatureContract.signatureAction {
 
             @Override
             public void onComplete() {
-                signatureView.ToastLoginResultMsg("Signature saved.");
-                signatureView.enablePad();
-                signatureView.enableBtnClear();
-                signatureView.enableBtnConfirm();
-                signatureView.hideProgressDialog();
             }
         });
+    }
+
+    private void updateFlagInUserProfile() {
+        UserProfileSpImpl userProfileSp = new UserProfileSpImpl((Context) signatureView);
+        userProfileSp.setIcfSigned(true);
+    }
+
+    private void updateIcfHistoryInSp() {
+        // TODO:
     }
 
     private void goToIcfActivity(String downloadUri) {

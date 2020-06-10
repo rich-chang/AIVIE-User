@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aivie.aivie.user.R;
+import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.LoginView {
 
@@ -25,7 +27,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loginPresenter = new LoginPresenter(this, new LoginRepository());
+        loginPresenter = new LoginPresenter(this, new LoginRepository(this));
+        loginPresenter.checkIfLogin();
     }
 
     private EditText getUsernameViewById() {
@@ -65,18 +68,49 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     @Override
     public void ToastLoginResultMsg(String msg) {
-        //Log.d(Constant.TAG, "ToastLoginResultMsg: "+msg);
-        //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showProgress() {
-        findViewById(R.id.progressBarLogin).setVisibility(View.VISIBLE);
+    public void showProgressDialog(String message) {
+        ProgressDialogUtil.showProgressDialog(this, message);
     }
 
     @Override
-    public void hideProgress() {
-        findViewById(R.id.progressBarLogin).setVisibility(View.GONE);
+    public void hideProgressDialog() {
+        ProgressDialogUtil.dismiss();
+    }
+
+    @Override
+    public void enableLoginEmail() {
+        findViewById(R.id.username).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginEmail() {
+        findViewById(R.id.username).setEnabled(false);
+    }
+
+    @Override
+    public void setLoginEmailError(String message) {
+        ((EditText) findViewById(R.id.username)).setError(message);
+        ((EditText) findViewById(R.id.username)).requestFocus();
+    }
+
+    @Override
+    public void enableLoginPassword() {
+        findViewById(R.id.password).setEnabled(true);
+    }
+
+    @Override
+    public void disableLoginPassword() {
+        findViewById(R.id.password).setEnabled(false);
+    }
+
+    @Override
+    public void setLoginPasswordError(String message) {
+        ((EditText) findViewById(R.id.password)).setError(message);
+        ((EditText) findViewById(R.id.username)).requestFocus();
     }
 
     @Override
