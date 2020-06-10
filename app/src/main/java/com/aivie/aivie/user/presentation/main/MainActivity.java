@@ -19,6 +19,7 @@ import com.aivie.aivie.user.presentation.account.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView {
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         mainPresenter = new MainPresenter(this);
         mainPresenter.saveVersionToSp();
 
+        initFireAuthListener();
+
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
 
             mainPresenter.goToLoginView();
@@ -80,5 +83,22 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             getSupportActionBar().setTitle("Home");
         }
+    }
+
+    public void initFireAuthListener() {
+
+        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+
+                } else {
+                    mainPresenter.goToLoginView();
+                }
+            }
+        };
+        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
     }
 }
