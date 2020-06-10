@@ -84,7 +84,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                         saveUserProfileToSP(userProfileDetail);
                                                                         saveLastIndexOfAdverseEventsToSp(lastIndexOfAdverseEvents);
 
-                                                                        if (hasUnsignedIcf) {
+                                                                        if (!hasUnsignedIcf) {
                                                                             goToUserHome();
                                                                         } else {
                                                                             goToSignICF();

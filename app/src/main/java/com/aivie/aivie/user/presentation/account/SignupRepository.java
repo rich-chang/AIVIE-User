@@ -106,9 +106,10 @@ class SignupRepository {
         userData.put(Constant.FIRE_COLUMN_SUBJECTNUM, "UNKNOWN");
         userData.put(Constant.FIRE_COLUMN_ROLE, db.collection(Constant.FIRE_COLLECTION_ROLES).document("PT"));
         userData.put(Constant.FIRE_COLUMN_PATIENT_OF_STUDY, db.collection(Constant.FIRE_COLLECTION_STUDIES).document("000001"));
-        userData.put(Constant.FIRE_COLUMN_EICF, db.collection(Constant.FIRE_COLLECTION_ICF).document("0001"));
+        //userData.put(Constant.FIRE_COLUMN_EICF, db.collection(Constant.FIRE_COLLECTION_ICF).document("0001"));
         //userData.put(Constant.FIRE_COLUMN_EICF_SIGNED, false);
-        userData.put(Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, false);
+        userData.put(Constant.FIRE_COLUMN_NEXT_UNSIGNED_ICF, 1);
+        userData.put(Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, true);
 
         userData.put(Constant.FIRE_COLUMN_SITE_ID, "S001");
         userData.put(Constant.FIRE_COLUMN_SITE_DOCTOR, "Steven Jackson");
@@ -177,8 +178,8 @@ class SignupRepository {
 
         Map<String, Object> userAdverseEventsData = new HashMap<>();
 
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_ID, "0000");
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document("0001"));
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_ID, "0");
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document("0"));
         userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNATURE_URL, "");
         userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED, false);
 

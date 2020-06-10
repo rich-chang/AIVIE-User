@@ -30,7 +30,7 @@ public class UserProfileSpImpl implements UserProfileSp {
                 .putString(Constant.FIRE_COLUMN_SUBJECTNUM, userProfileDetail.getSubjectNum())
                 .putString(Constant.FIRE_COLUMN_ROLE, userProfileDetail.getRole())
                 .putString(Constant.FIRE_COLUMN_PATIENT_OF_STUDY, userProfileDetail.getPatientOfStudy())
-                .putBoolean(Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, userProfileDetail.iseIcfSigned())
+                .putBoolean(Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, userProfileDetail.hasUnsignedIcf())
                 .putString(Constant.FIRE_COLUMN_SITE_ID, userProfileDetail.getSiteId())
                 .putString(Constant.FIRE_COLUMN_SITE_DOCTOR, userProfileDetail.getSiteDoctor())
                 .putString(Constant.FIRE_COLUMN_SITE_SC, userProfileDetail.getSiteSC())

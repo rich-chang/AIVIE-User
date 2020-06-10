@@ -98,7 +98,7 @@ class SignatureRepository {
         });
     }
 
-    void updateIcfFlagInUserProfile(final boolean isSignedIcf, final SignatureContract.updateSignedFlagCallback updateSignedFlagCallback) {
+    void updateIcfFlagInUserProfile(final boolean hasUnsignedIcf, final SignatureContract.updateSignedFlagCallback updateSignedFlagCallback) {
 
         final DocumentReference docRefSignedICF = db.collection(Constant.FIRE_COLLECTION_USERS).document(mAuth.getCurrentUser().getUid());
 
@@ -107,7 +107,7 @@ class SignatureRepository {
             @Override
             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
 
-                transaction.update(docRefSignedICF, Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, isSignedIcf);
+                transaction.update(docRefSignedICF, Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, hasUnsignedIcf);
                 return null;
             }
         }).addOnSuccessListener(new OnSuccessListener<Void>() {

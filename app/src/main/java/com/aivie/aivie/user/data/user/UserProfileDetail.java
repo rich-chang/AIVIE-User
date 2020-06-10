@@ -17,7 +17,7 @@ public class UserProfileDetail implements Parcelable {
     private String subjectNum;
     private String role;
     private String patientOfStudy;
-    private boolean isIcfSigned;
+    private boolean hasUnsignedIcf;
     private String siteId;
     private String siteDoctor;
     private String siteSC;
@@ -46,7 +46,7 @@ public class UserProfileDetail implements Parcelable {
         out.writeString(this.subjectNum);
         out.writeString(this.role);
         out.writeString(this.patientOfStudy);
-        out.writeByte(this.isIcfSigned? (byte) 1: (byte) 0);
+        out.writeByte(this.hasUnsignedIcf? (byte) 1: (byte) 0);
         out.writeString(this.siteId);
         out.writeString(this.siteDoctor);
         out.writeString(this.siteSC);
@@ -75,7 +75,7 @@ public class UserProfileDetail implements Parcelable {
         this.subjectNum = in.readString();
         this.role = in.readString();
         this.patientOfStudy = in.readString();
-        this.isIcfSigned = in.readByte() != 0;
+        this.hasUnsignedIcf = in.readByte() != 0;
         this.siteId = in.readString();
         this.siteDoctor = in.readString();
         this.siteSC = in.readString();
@@ -86,7 +86,7 @@ public class UserProfileDetail implements Parcelable {
 
     public UserProfileDetail(final String firstName, String lastName, String displayName, String dateOfBirth,
                              String gender, String race, String ethnicity,
-                             String subjectNum, String role, String patientOfStudy, boolean eIcfSigned,
+                             String subjectNum, String role, String patientOfStudy, boolean hasUnsignedIcf,
                              String siteId, String siteDoctor, String siteSC, String sitePhone, ArrayList<String> visitPlan) {
 
         this.firstName = firstName;
@@ -99,7 +99,7 @@ public class UserProfileDetail implements Parcelable {
         this.subjectNum = subjectNum;
         this.role = role;
         this.patientOfStudy = patientOfStudy;
-        this.isIcfSigned = eIcfSigned;
+        this.hasUnsignedIcf = hasUnsignedIcf;
         this.siteId = siteId;
         this.siteDoctor = siteDoctor;
         this.siteSC = siteSC;
@@ -147,8 +147,8 @@ public class UserProfileDetail implements Parcelable {
         return patientOfStudy;
     }
 
-    public boolean iseIcfSigned() {
-        return isIcfSigned;
+    public boolean hasUnsignedIcf() {
+        return hasUnsignedIcf;
     }
 
     String getSiteId() {
@@ -167,8 +167,8 @@ public class UserProfileDetail implements Parcelable {
         return sitePhone;
     }
 
-    public void updateIcfSigned(boolean signed) {
-        isIcfSigned = signed;
+    public void updateIcfSigned(boolean hasUnsignedIcf) {
+        this.hasUnsignedIcf = hasUnsignedIcf;
     }
 
     ArrayList<String> getVisitPlan() {
