@@ -107,7 +107,7 @@ class SignatureRepository {
             @Override
             public Void apply(Transaction transaction) throws FirebaseFirestoreException {
 
-                transaction.update(docRefSignedICF, Constant.FIRE_COLUMN_EICF_SIGNED, isSignedIcf);
+                transaction.update(docRefSignedICF, Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, isSignedIcf);
                 return null;
             }
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
