@@ -12,14 +12,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
+//import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 class SignupRepository {
@@ -93,7 +97,7 @@ class SignupRepository {
         userData.put(Constant.FIRE_COLUMN_DISPLAYNAME, lastName);
         userData.put(Constant.FIRE_COLUMN_FIRSTNAME, firstName);
         userData.put(Constant.FIRE_COLUMN_LASTNAME, lastName);
-        userData.put(Constant.FIRE_COLUMN_DOB, new Timestamp(new Date()));
+        userData.put(Constant.FIRE_COLUMN_DOB, new Timestamp(new Date().getTime()));
 
         userData.put(Constant.FIRE_COLUMN_GENDER, db.collection(Constant.FIRE_COLLECTION_GENDER).document("UNKNOWN"));
         userData.put(Constant.FIRE_COLUMN_RACE, db.collection(Constant.FIRE_COLLECTION_RACE).document("O"));
@@ -114,7 +118,7 @@ class SignupRepository {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        createTempDataCallback.onSuccess("User profile has been initialized successfully.");
+                        createTempDataCallback.onSuccess("Create account successfully.");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -149,7 +153,7 @@ class SignupRepository {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        initUserAdverseEventsCallback.onSuccess("User adverse events databsed has been initialized successfully.");
+                        initUserAdverseEventsCallback.onSuccess("Create account successfully.");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -166,7 +170,43 @@ class SignupRepository {
                         initUserAdverseEventsCallback.onComplete();
                     }
                 });
+    }
 
+    void initIcfHistoryCollection(final SignupContract.InitUserIcfHistoryCallback initUserIcfHistoryCallback) throws ParseException {
 
+        Map<String, Object> userAdverseEventsData = new HashMap<>();
+
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_ID, "0000");
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document("0001"));
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNATURE_URL, "");
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED, false);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
+        Date date = (Date)sdf.parse("1990-01-01");
+        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED_DATE, new Timestamp(date.getTime()));
+
+        db.collection(Constant.FIRE_COLLECTION_USERS).document(userId)
+                .collection(Constant.FIRE_COLLECTION_ICF_HISTORY).document("0")
+                .set(userAdverseEventsData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        initUserIcfHistoryCallback.onSuccess("Create account successfully.");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        initUserIcfHistoryCallback.onFailure(e.toString());
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (Constant.DEBUG) Log.d(Constant.TAG, "initAdverseEventsCollection: complete");
+                        initUserIcfHistoryCallback.onComplete();
+                    }
+                });
     }
 }

@@ -69,4 +69,13 @@ public interface SignupContract {
         void onComplete();
     }
 
+    interface InitUserIcfHistoryCallback {
+
+        void onSuccess(String resultMsg);
+
+        void onFailure(String resultMsg);
+
+        void onComplete();
+    }
+
 }

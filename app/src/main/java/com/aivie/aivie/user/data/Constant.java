@@ -30,6 +30,7 @@ public interface Constant {
     String FIRE_COLLECTION_STUDIES = "studies";
     String FIRE_COLLECTION_ICF = "icf";
     String FIRE_COLLECTION_ADVERSE_EVENTS = "adverse_events";
+    String FIRE_COLLECTION_ICF_HISTORY = "icf_history";
 
     String FIRE_COLUMN_ID = "Id";
     String FIRE_COLUMN_TITLE = "Title";
@@ -57,6 +58,11 @@ public interface Constant {
     String FIRE_AEH_COLUMN_EVENT_HAPPENED = "EventHappened";   // happened time
     String FIRE_AEH_COLUMN_EVENT_DURATION = "EventDuration";
     String FIRE_AEH_COLUMN_EVENT_REPORTED = "EventReported";   // now time
+    // ICF History
+    String FIRE_COLUMN_DOC_REFERENCE = "DocRef";
+    String FIRE_COLUMN_SIGNATURE_URL = "SignatureUrl";
+    String FIRE_COLUMN_SIGNED = "Signed";
+    String FIRE_COLUMN_SIGNED_DATE = "SignedDate";
 
     // Request Permission
     Integer REQ_CODE_ASK_CALL_PHONE = 100;
