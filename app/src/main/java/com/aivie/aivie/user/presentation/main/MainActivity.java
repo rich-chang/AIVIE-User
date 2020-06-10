@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        // Do nothing when press back.
+    }
+
     public void initFireAuthListener() {
 
         FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
