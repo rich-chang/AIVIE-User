@@ -53,7 +53,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                     @Override
                     public void onSuccess(final DocumentSnapshot documentUser) {
 
-                        final boolean isIcfSigned = loginRepository.isIcfSigned();
+                        final boolean hasUnsignedIcf = loginRepository.hasUnsignedIcf();
 
                         loginRepository.getUserGender(documentUser, new LoginContract.GetUserGenderCallback() {
                             @Override
@@ -84,7 +84,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
                                                                         saveUserProfileToSP(userProfileDetail);
                                                                         saveLastIndexOfAdverseEventsToSp(lastIndexOfAdverseEvents);
 
-                                                                        if (isIcfSigned) {
+                                                                        if (!hasUnsignedIcf) {
                                                                             goToUserHome();
                                                                         } else {
                                                                             goToSignICF();

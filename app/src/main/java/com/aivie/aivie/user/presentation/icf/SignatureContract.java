@@ -55,7 +55,15 @@ public interface SignatureContract {
         void onFailure(String result);
 
         void onComplete();
+    }
 
+    interface InitUserIcfHistoryCallback {
+
+        void onSuccess(String resultMsg);
+
+        void onFailure(String resultMsg);
+
+        void onComplete();
     }
 
 }

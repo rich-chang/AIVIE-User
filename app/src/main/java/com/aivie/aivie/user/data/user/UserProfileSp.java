@@ -26,7 +26,7 @@ public interface UserProfileSp {
 
     String getPatientOfStudy();
 
-    boolean isIcfSigned();
+    boolean hasUnsignedIcf();
 
     void setIcfSigned(boolean signed);
 

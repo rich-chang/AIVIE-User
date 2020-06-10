@@ -56,11 +56,32 @@ class SignaturePresenter implements SignatureContract.signatureAction {
             @Override
             public void onSuccess(final String downloadUri) {
 
-                signatureRepository.updateIcfFlagInUserProfile(true, new SignatureContract.updateSignedFlagCallback() {
+                signatureRepository.updateIcfFlagInUserProfile(false, new SignatureContract.updateSignedFlagCallback() {
                     @Override
                     public void onSuccess() {
+
                         updateFlagInUserProfile();
-                        goToIcfActivity(downloadUri);
+
+                        // TODO: Get next ICF doc number/name. Hardcoding for now.
+                        signatureRepository.updateIcfHistory(downloadUri, "1", new SignatureContract.InitUserIcfHistoryCallback() {
+                            @Override
+                            public void onSuccess(String resultMsg) {
+                                goToIcfActivity(downloadUri);
+                            }
+
+                            @Override
+                            public void onFailure(String resultMsg) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                signatureView.ToastLoginResultMsg("Signature saved.");
+                                signatureView.enablePad();
+                                signatureView.enableBtnClear();
+                                signatureView.enableBtnConfirm();
+                                signatureView.hideProgressDialog();
+                            }
+                        });
                     }
 
                     @Override
@@ -69,11 +90,6 @@ class SignaturePresenter implements SignatureContract.signatureAction {
 
                     @Override
                     public void onComplete() {
-                        signatureView.ToastLoginResultMsg("Signature saved.");
-                        signatureView.enablePad();
-                        signatureView.enableBtnClear();
-                        signatureView.enableBtnConfirm();
-                        signatureView.hideProgressDialog();
                     }
                 });
             }
@@ -91,6 +107,10 @@ class SignaturePresenter implements SignatureContract.signatureAction {
     private void updateFlagInUserProfile() {
         UserProfileSpImpl userProfileSp = new UserProfileSpImpl((Context) signatureView);
         userProfileSp.setIcfSigned(true);
+    }
+
+    private void updateIcfHistoryInSp() {
+        // TODO:
     }
 
     private void goToIcfActivity(String downloadUri) {

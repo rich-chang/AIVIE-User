@@ -48,19 +48,42 @@ public class SignupPresenter implements SignupContract.SignupUserActions {
                         signupRepository.initAdverseEventsCollection(new SignupContract.InitUserAdverseEventsCallback() {
                             @Override
                             public void onSuccess(String resultMsg) {
-                                signupView.ToastLoginResultMsg(resultMsg);
-                                clearPreviousToken();
-                                clickGoToLogin();
+
+                                try {
+                                    signupRepository.initIcfHistoryCollection(new SignupContract.InitUserIcfHistoryCallback() {
+                                        @Override
+                                        public void onSuccess(String resultMsg) {
+
+                                            signupView.ToastLoginResultMsg(resultMsg);
+                                            clearPreviousToken();
+                                            clickGoToLogin();
+                                        }
+
+                                        @Override
+                                        public void onFailure(String resultMsg) {
+                                            signupView.ToastLoginResultMsg(resultMsg);
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+                                            unlockUserInterface();
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    signupView.ToastLoginResultMsg(resultMsg);
+                                    unlockUserInterface();
+                                }
                             }
 
                             @Override
                             public void onFailure(String resultMsg) {
                                 signupView.ToastLoginResultMsg(resultMsg);
+                                unlockUserInterface();
                             }
 
                             @Override
                             public void onComplete() {
-                                unlockUserInterface();
                             }
                         });
                     }

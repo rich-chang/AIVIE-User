@@ -44,7 +44,7 @@ class LoginRepository {
     private String subjectNum;
     private String role;
     private String patientOfStudy;
-    private boolean isIcfSigned;
+    private boolean hasUnsignedIcf;
     private String siteId;
     private String siteDoctor;
     private String siteSC;
@@ -128,7 +128,7 @@ class LoginRepository {
                         displayName = (String) documentUser.get(Constant.FIRE_COLUMN_DISPLAYNAME);
 
                         subjectNum = (String) documentUser.get(Constant.FIRE_COLUMN_SUBJECTNUM);
-                        isIcfSigned = (boolean) documentUser.get(Constant.FIRE_COLUMN_EICF_SIGNED);
+                        hasUnsignedIcf = (boolean) documentUser.get(Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF);
 
                         // Get user birthday
                         SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd");
@@ -267,15 +267,15 @@ class LoginRepository {
         });
     }
 
-    boolean isIcfSigned() {
-        return isIcfSigned;
+    boolean hasUnsignedIcf() {
+        return hasUnsignedIcf;
     }
 
     UserProfileDetail initUserProfileDetail() {
 
         return new UserProfileDetail(firstName, lastName, displayName, dateOfBirth,
                 gender, race, ethnicity, subjectNum, role,
-                patientOfStudy, isIcfSigned, siteId, siteDoctor, siteSC, sitePhone, visitPlan);
+                patientOfStudy, hasUnsignedIcf, siteId, siteDoctor, siteSC, sitePhone, visitPlan);
     }
 
     void getUserAdverseEvents(final LoginContract.GetUserAdverseEvents getUserAdverseEvents) {
