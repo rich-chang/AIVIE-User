@@ -2,6 +2,7 @@ package com.aivie.aivie.user.presentation.account;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.aivie.aivie.user.data.Constant;
@@ -9,11 +10,13 @@ import com.aivie.aivie.user.data.user.UserProfileDetail;
 import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.aivie.aivie.user.presentation.icf.IcfActivity;
 import com.aivie.aivie.user.presentation.main.MainActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class LoginPresenter implements LoginContract.LoginUserActions {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     private LoginContract.LoginView loginView;
     private LoginRepository loginRepository;
 
@@ -27,6 +30,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
     private void InitActivityView() {
         loginView.setContentView();
         loginView.showSpString();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance((Context) loginView);
 
         unlockUserInterface();
     }
@@ -42,6 +46,10 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     @Override
     public void clickLogin(String username, String password) {
+
+        Bundle params = new Bundle();
+        params.putString("username", username);
+        mFirebaseAnalytics.logEvent("login", params);
 
         lockUserInterface();
 
