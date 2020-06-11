@@ -62,6 +62,7 @@ class LoginRepository {
         if (username.equals("") || password.equals("")) {
             loginCallback.onFailure(null, "Email or password can't be empty.");
             loginCallback.onComplete();
+            return;
         }
 
         mAuth.signInWithEmailAndPassword(username, password)
