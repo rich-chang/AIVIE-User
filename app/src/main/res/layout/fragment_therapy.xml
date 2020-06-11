@@ -19,9 +19,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="24dp"
                 android:text="Add any activity"
                 android:textAlignment="center"
                 android:textColor="#2196F3"
@@ -55,10 +55,11 @@
                             android:id="@+id/textViewDosing"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:layout_weight="1"
                             android:text="Dosing"
                             android:textAlignment="center"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -80,10 +81,11 @@
                             android:id="@+id/textViewAdverseEvent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:layout_weight="1"
                             android:text="Adverse\nEvent"
                             android:textAlignment="center"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -105,10 +107,11 @@
                             android:id="@+id/textViewPatientReport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:layout_weight="1"
                             android:text="Patient\nReport"
                             android:textAlignment="center"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -130,10 +133,11 @@
                             android:id="@+id/textViewConcomit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:layout_weight="1"
-                            android:text="Concimitant"
+                            android:text="Concomitant"
                             android:textAlignment="center"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -148,7 +152,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 android:background="?android:attr/listDivider" />
 
             <TextView
@@ -156,7 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="Adverse Event"
