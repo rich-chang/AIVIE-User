@@ -1,9 +1,7 @@
 package com.aivie.aivie.user.presentation.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +10,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.aivie.aivie.user.presentation.account.LoginActivity;
+import com.aivie.aivie.user.presentation.icf.IcfManagementActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.type.Color;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
@@ -48,6 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View view = getView();
         if (view != null) {
 
+            view.findViewById(R.id.ll_IcfSignedHistory).setOnClickListener(this);
             showUserName(view);
 
             try {
@@ -63,9 +58,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.imageViewIcfSignedHistory:
-            case R.id.textViewIcfHistory:
-                
+            case R.id.ll_IcfSignedHistory:
+                Intent intent = new Intent(getContext(), IcfManagementActivity.class);
+                startActivity(intent);
                 break;
         }
     }
