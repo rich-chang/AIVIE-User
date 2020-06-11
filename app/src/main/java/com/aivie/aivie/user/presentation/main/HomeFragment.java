@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -56,6 +56,17 @@ public class HomeFragment extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.imageViewIcfSignedHistory:
+            case R.id.textViewIcfHistory:
+                
+                break;
         }
     }
 
