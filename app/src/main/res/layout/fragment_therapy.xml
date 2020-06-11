@@ -124,7 +124,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_patient_report" />
+                            app:srcCompat="@drawable/ic_concomitent" />
 
                         <TextView
                             android:id="@+id/textViewConcomit"
