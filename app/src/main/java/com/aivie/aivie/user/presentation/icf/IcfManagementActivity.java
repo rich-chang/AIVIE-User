@@ -12,5 +12,7 @@ public class IcfManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icf_management);
+
+        getSupportActionBar().setTitle("eICF Document History");
     }
 }
