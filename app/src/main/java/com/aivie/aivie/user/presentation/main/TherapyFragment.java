@@ -184,6 +184,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.imageViewAdverseEvent:
             case R.id.textViewAdverseEvent:
+            case R.id.ll_AdverseEvent:
                 Intent intent = new Intent(getContext(), AdverseEventActivity.class);
                 startActivity(intent);
                 break;
