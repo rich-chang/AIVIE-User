@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import com.aivie.aivie.user.R;
 
-public class IcfManagementActivity extends AppCompatActivity {
+public class IcfListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_icf_management);
+        setContentView(R.layout.activity_icf_list);
 
         getSupportActionBar().setTitle("eICF Document History");
     }

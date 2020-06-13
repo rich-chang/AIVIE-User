@@ -16,7 +16,7 @@ import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.aivie.aivie.user.presentation.account.LoginActivity;
-import com.aivie.aivie.user.presentation.icf.IcfManagementActivity;
+import com.aivie.aivie.user.presentation.icf.IcfListActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.ParseException;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.ll_IcfSignedHistory:
-                Intent intent = new Intent(getContext(), IcfManagementActivity.class);
+                Intent intent = new Intent(getContext(), IcfListActivity.class);
                 startActivity(intent);
                 break;
         }
