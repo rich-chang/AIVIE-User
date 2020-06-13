@@ -47,7 +47,6 @@ public class IcfListActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         listViewIcf = findViewById(R.id.listViewIcfHistory);
-        addItem();
         adapter = new IcfListAdapter(this, icfList);
         listViewIcf.setAdapter(adapter);
 
