@@ -3,9 +3,12 @@ package com.aivie.aivie.user.presentation.icf;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +52,21 @@ public class IcfListActivity extends AppCompatActivity {
         listViewIcf = findViewById(R.id.listViewIcfHistory);
         adapter = new IcfListAdapter(this, icfList);
         listViewIcf.setAdapter(adapter);
+        listViewIcf.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(getApplicationContext(), IcfActivity.class);
+                intent.putExtra(Constant.SIGNATURE_URI, icfList.get(i).get((Constant.FIRE_ICF_COLUMN_SIGNATURE_URL)).toString());
+                if (icfList.get(i).get(Constant.FIRE_ICF_COLUMN_SIGNED).equals("true")) {
+                    intent.putExtra(Constant.SIGNATURE_SIGNED, true);
+                } else {
+                    intent.putExtra(Constant.SIGNATURE_SIGNED, false);
+                }
+                startActivity(intent);
+            }
+        });
 
         displayIcfList();
     }
@@ -96,6 +114,7 @@ public class IcfListActivity extends AppCompatActivity {
                                     temp.put(Constant.FIRE_ICF_COLUMN_DOC_ID, icfID);
                                     temp.put(Constant.FIRE_ICF_COLUMN_SIGNED, Boolean.toString(icfSigned));
                                     temp.put(Constant.FIRE_ICF_COLUMN_SIGNED_DATE, signedDate);
+                                    temp.put(Constant.FIRE_ICF_COLUMN_SIGNATURE_URL, signatureUrl);
                                     icfList.add(temp);
 
                                     Log.i(Constant.TAG, "getUserIcfHistory: " + icfList.toString());
