@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             view.findViewById(R.id.ll_IcfSignedHistory).setOnClickListener(this);
             showUserName(view);
+            showStudyNumber(view);
 
             try {
                 getVisitPlan(view);
@@ -69,6 +70,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
         String userName = "Good day! " + userProfileSplmpl.getFirstName() + " " + userProfileSplmpl.getLastName();
         ((TextView) view.findViewById(R.id.textViewWelcome)).setText(userName);
+    }
+
+    private void showStudyNumber(View view) {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
+        String studyNumber = userProfileSplmpl.getStudyNumber();
+        ((TextView) view.findViewById(R.id.textViewStudyNumber)).setText(studyNumber);
     }
 
     private void getVisitPlan(View view) throws ParseException {

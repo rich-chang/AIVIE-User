@@ -72,6 +72,30 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/textViewStudyNumberTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Study Number"
+                android:textColor="#2196F3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textViewStudyNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
                 android:id="@+id/textViewVisitPlanTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
