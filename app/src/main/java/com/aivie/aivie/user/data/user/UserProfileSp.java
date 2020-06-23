@@ -26,6 +26,12 @@ public interface UserProfileSp {
 
     String getPatientOfStudy();
 
+    String getStudyNumber();
+
+    String getEditionNumber();
+
+    String getVersionNumber();
+
     boolean hasUnsignedIcf();
 
     void setIcfSigned(boolean signed);
