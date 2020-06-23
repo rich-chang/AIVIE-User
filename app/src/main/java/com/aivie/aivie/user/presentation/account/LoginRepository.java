@@ -44,6 +44,9 @@ class LoginRepository {
     private String subjectNum;
     private String role;
     private String patientOfStudy;
+    private String studyNumber;
+    private String editionNumber;
+    private String versionNumber;
     private boolean hasUnsignedIcf;
     private String siteId;
     private String siteDoctor;
@@ -224,6 +227,9 @@ class LoginRepository {
                     if(Objects.requireNonNull(documentUserStudy).exists()) {
 
                         patientOfStudy = (String) documentUserStudy.get(Constant.FIRE_COLUMN_TITLE);
+                        studyNumber = (String) documentUserStudy.get(Constant.FIRE_COLUMN_STUDY_NUMBER);
+                        editionNumber = (String) documentUserStudy.get(Constant.FIRE_COLUMN_EDITION_NUMBER);
+                        versionNumber = (String) documentUserStudy.get(Constant.FIRE_COLUMN_VERSION_NUMBER);
 
                         List<Timestamp> visitsDate = (List<Timestamp>) documentUserStudy.getData().get(Constant.FIRE_COLUMN_STUDY_VISIT_PLAN);
 
@@ -275,8 +281,8 @@ class LoginRepository {
     UserProfileDetail initUserProfileDetail() {
 
         return new UserProfileDetail(firstName, lastName, displayName, dateOfBirth,
-                gender, race, ethnicity, subjectNum, role,
-                patientOfStudy, hasUnsignedIcf, siteId, siteDoctor, siteSC, sitePhone, visitPlan);
+                gender, race, ethnicity, subjectNum, role, patientOfStudy, studyNumber, editionNumber, versionNumber,
+                hasUnsignedIcf, siteId, siteDoctor, siteSC, sitePhone, visitPlan);
     }
 
     void getUserAdverseEvents(final LoginContract.GetUserAdverseEvents getUserAdverseEvents) {

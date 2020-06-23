@@ -44,6 +44,9 @@ public interface Constant {
     String FIRE_COLUMN_SUBJECTNUM = "SubjectNumber";
     String FIRE_COLUMN_ROLE = "Role";
     String FIRE_COLUMN_PATIENT_OF_STUDY = "PatientOfStudy";
+    String FIRE_COLUMN_STUDY_NUMBER = "StudyNumber";
+    String FIRE_COLUMN_EDITION_NUMBER = "EditionNumber";
+    String FIRE_COLUMN_VERSION_NUMBER = "VersionNumber";
     //String FIRE_COLUMN_EICF = "eICF";
     //String FIRE_COLUMN_EICF_SIGNED = "eICF_Signed";
     String FIRE_COLUMN_NEXT_UNSIGNED_ICF = "NextUnsignedICF";

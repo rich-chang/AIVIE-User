@@ -17,6 +17,9 @@ public class UserProfileDetail implements Parcelable {
     private String subjectNum;
     private String role;
     private String patientOfStudy;
+    private String studyNumber;
+    private String editionNumber;
+    private String versionNumber;
     private boolean hasUnsignedIcf;
     private String siteId;
     private String siteDoctor;
@@ -86,7 +89,8 @@ public class UserProfileDetail implements Parcelable {
 
     public UserProfileDetail(final String firstName, String lastName, String displayName, String dateOfBirth,
                              String gender, String race, String ethnicity,
-                             String subjectNum, String role, String patientOfStudy, boolean hasUnsignedIcf,
+                             String subjectNum, String role, String patientOfStudy, String studyNumber, String editionNumber, String versionNumber,
+                             boolean hasUnsignedIcf,
                              String siteId, String siteDoctor, String siteSC, String sitePhone, ArrayList<String> visitPlan) {
 
         this.firstName = firstName;
@@ -99,6 +103,9 @@ public class UserProfileDetail implements Parcelable {
         this.subjectNum = subjectNum;
         this.role = role;
         this.patientOfStudy = patientOfStudy;
+        this.studyNumber = studyNumber;
+        this.editionNumber = editionNumber;
+        this.versionNumber = versionNumber;
         this.hasUnsignedIcf = hasUnsignedIcf;
         this.siteId = siteId;
         this.siteDoctor = siteDoctor;
@@ -146,6 +153,12 @@ public class UserProfileDetail implements Parcelable {
     String getPatientOfStudy() {
         return patientOfStudy;
     }
+
+    String getStudyNumber() {return studyNumber;}
+
+    String getEditionNumber() {return editionNumber;}
+
+    String getVersionNumber() {return versionNumber;}
 
     public boolean hasUnsignedIcf() {
         return hasUnsignedIcf;
