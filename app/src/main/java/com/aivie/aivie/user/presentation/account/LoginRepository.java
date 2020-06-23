@@ -232,7 +232,7 @@ class LoginRepository {
                             Timestamp tm = visitsDate.get(i);
                             Date date = tm.toDate();
 
-                            SimpleDateFormat sfdFull = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
+                            SimpleDateFormat sfdFull = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
                             visitPlan.add(sfdFull.format(date));
 
                             // TODO: Register notification for each date

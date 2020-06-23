@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setNextVisitDate(View view, ArrayList<String> visitPlan) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
 
         for (int i=0; i<visitPlan.size(); i++) {
             Date visitDate = sdf.parse(visitPlan.get(i));
