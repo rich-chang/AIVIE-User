@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserIcfManagement;
+import com.aivie.aivie.user.presentation.utils.ProgressDialogUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -85,6 +86,8 @@ public class IcfListActivity extends AppCompatActivity {
 
     private void getUserIcfHistory() {
 
+        ProgressDialogUtil.showProgressDialog(this);
+
         db.collection(Constant.FIRE_COLLECTION_USERS)
                 .document(mAuth.getCurrentUser().getUid())
                 .collection(Constant.FIRE_COLLECTION_ICF_HISTORY)
@@ -116,10 +119,10 @@ public class IcfListActivity extends AppCompatActivity {
                                     temp.put(Constant.FIRE_ICF_COLUMN_SIGNED_DATE, signedDate);
                                     temp.put(Constant.FIRE_ICF_COLUMN_SIGNATURE_URL, signatureUrl);
                                     icfList.add(temp);
-
-                                    Log.i(Constant.TAG, "getUserIcfHistory: " + icfList.toString());
-
+                                    
                                     adapter.notifyDataSetChanged();
+
+                                    ProgressDialogUtil.dismiss();
                                 }
                             }
                         } else {
