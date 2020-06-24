@@ -136,11 +136,11 @@ class SignatureRepository {
         Map<String, Object> userAdverseEventsData = new HashMap<>();
 
         Log.i("richc", "nextUnsignedIcf"+nextUnsignedIcf);
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_ID, nextUnsignedIcf);
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document(nextUnsignedIcf));
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNATURE_URL, signatureUrl);
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED, true);
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED_DATE, new Timestamp(new Date().getTime()));
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_DOC_ID, nextUnsignedIcf);
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document(nextUnsignedIcf));
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_SIGNATURE_URL, signatureUrl);
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_SIGNED, true);
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_SIGNED_DATE, new Timestamp(new Date().getTime()));
 
         db.collection(Constant.FIRE_COLLECTION_USERS).document(mAuth.getCurrentUser().getUid())
                 .collection(Constant.FIRE_COLLECTION_ICF_HISTORY).document(nextUnsignedIcf)

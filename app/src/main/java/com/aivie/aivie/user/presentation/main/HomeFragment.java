@@ -1,9 +1,7 @@
 package com.aivie.aivie.user.presentation.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,27 +10,23 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.Constant;
 import com.aivie.aivie.user.data.user.UserProfileSpImpl;
 import com.aivie.aivie.user.presentation.account.LoginActivity;
+import com.aivie.aivie.user.presentation.icf.IcfListActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.type.Color;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -48,14 +42,20 @@ public class HomeFragment extends Fragment {
         View view = getView();
         if (view != null) {
 
-            showUserName(view);
+            view.findViewById(R.id.ll_IcfSignedHistory).setOnClickListener(this);
 
-            try {
-                getVisitPlan(view);
+            showVisitPlan(view);
+        }
+    }
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ll_IcfSignedHistory:
+                Intent intent = new Intent(getContext(), IcfListActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -63,6 +63,31 @@ public class HomeFragment extends Fragment {
         UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
         String userName = "Good day! " + userProfileSplmpl.getFirstName() + " " + userProfileSplmpl.getLastName();
         ((TextView) view.findViewById(R.id.textViewWelcome)).setText(userName);
+    }
+
+    private void showStudyNumber(View view) {
+        UserProfileSpImpl userProfileSplmpl = new UserProfileSpImpl((MainActivity) getActivity());
+        String studyNumber = userProfileSplmpl.getStudyNumber();
+        ((TextView) view.findViewById(R.id.textViewStudyNumber)).setText(studyNumber);
+    }
+
+    private void showVisitPlan(View view) {
+
+        int visitPlanCount = ((LinearLayout) view.findViewById(R.id.ll_visitPlan)).getChildCount();
+        if (visitPlanCount == 0) {
+
+            showUserName(view);
+            showStudyNumber(view);
+
+            try {
+                getVisitPlan(view);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Do nothing. Not to add repeatedly.
+        }
     }
 
     private void getVisitPlan(View view) throws ParseException {
@@ -91,7 +116,7 @@ public class HomeFragment extends Fragment {
 
     private void setNextVisitDate(View view, ArrayList<String> visitPlan) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_FULL, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
 
         for (int i=0; i<visitPlan.size(); i++) {
             Date visitDate = sdf.parse(visitPlan.get(i));

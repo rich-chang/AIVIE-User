@@ -30,6 +30,9 @@ public class UserProfileSpImpl implements UserProfileSp {
                 .putString(Constant.FIRE_COLUMN_SUBJECTNUM, userProfileDetail.getSubjectNum())
                 .putString(Constant.FIRE_COLUMN_ROLE, userProfileDetail.getRole())
                 .putString(Constant.FIRE_COLUMN_PATIENT_OF_STUDY, userProfileDetail.getPatientOfStudy())
+                .putString(Constant.FIRE_COLUMN_STUDY_NUMBER, userProfileDetail.getStudyNumber())
+                .putString(Constant.FIRE_COLUMN_EDITION_NUMBER, userProfileDetail.getEditionNumber())
+                .putString(Constant.FIRE_COLUMN_VERSION_NUMBER, userProfileDetail.getVersionNumber())
                 .putBoolean(Constant.FIRE_COLUMN_HAS_UNSIGNED_ICF, userProfileDetail.hasUnsignedIcf())
                 .putString(Constant.FIRE_COLUMN_SITE_ID, userProfileDetail.getSiteId())
                 .putString(Constant.FIRE_COLUMN_SITE_DOCTOR, userProfileDetail.getSiteDoctor())
@@ -99,6 +102,22 @@ public class UserProfileSpImpl implements UserProfileSp {
     public String getPatientOfStudy() {
         return sp.getString(Constant.FIRE_COLUMN_PATIENT_OF_STUDY, "");
     }
+
+    @Override
+    public String getStudyNumber() {
+        return sp.getString(Constant.FIRE_COLUMN_STUDY_NUMBER, "");
+    }
+
+    @Override
+    public String getEditionNumber() {
+        return sp.getString(Constant.FIRE_COLUMN_EDITION_NUMBER, "");
+    }
+
+    @Override
+    public String getVersionNumber() {
+        return sp.getString(Constant.FIRE_COLUMN_VERSION_NUMBER, "");
+    }
+
 
     @Override
     public boolean hasUnsignedIcf() {

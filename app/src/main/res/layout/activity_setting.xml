@@ -59,7 +59,8 @@
                 android:layout_marginBottom="16dp"
                 android:text="eICF History"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="invisible" />
 
             <View
                 android:id="@+id/dividerGeneral"

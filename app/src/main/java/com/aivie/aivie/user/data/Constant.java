@@ -44,6 +44,9 @@ public interface Constant {
     String FIRE_COLUMN_SUBJECTNUM = "SubjectNumber";
     String FIRE_COLUMN_ROLE = "Role";
     String FIRE_COLUMN_PATIENT_OF_STUDY = "PatientOfStudy";
+    String FIRE_COLUMN_STUDY_NUMBER = "StudyNumber";
+    String FIRE_COLUMN_EDITION_NUMBER = "EditionNumber";
+    String FIRE_COLUMN_VERSION_NUMBER = "VersionNumber";
     //String FIRE_COLUMN_EICF = "eICF";
     //String FIRE_COLUMN_EICF_SIGNED = "eICF_Signed";
     String FIRE_COLUMN_NEXT_UNSIGNED_ICF = "NextUnsignedICF";
@@ -61,10 +64,11 @@ public interface Constant {
     String FIRE_AEH_COLUMN_EVENT_DURATION = "EventDuration";
     String FIRE_AEH_COLUMN_EVENT_REPORTED = "EventReported";   // now time
     // ICF History
-    String FIRE_COLUMN_DOC_REFERENCE = "DocRef";
-    String FIRE_COLUMN_SIGNATURE_URL = "SignatureUrl";
-    String FIRE_COLUMN_SIGNED = "Signed";
-    String FIRE_COLUMN_SIGNED_DATE = "SignedDate";
+    String FIRE_ICF_COLUMN_DOC_ID = "Id";
+    String FIRE_ICF_COLUMN_DOC_REFERENCE = "DocRef";
+    String FIRE_ICF_COLUMN_SIGNED = "Signed";
+    String FIRE_ICF_COLUMN_SIGNED_DATE = "SignedDate";
+    String FIRE_ICF_COLUMN_SIGNATURE_URL = "SignatureUrl";
 
     // Request Permission
     Integer REQ_CODE_ASK_CALL_PHONE = 100;

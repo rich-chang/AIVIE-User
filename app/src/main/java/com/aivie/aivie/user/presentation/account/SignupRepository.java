@@ -178,14 +178,14 @@ class SignupRepository {
 
         Map<String, Object> userAdverseEventsData = new HashMap<>();
 
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_ID, "0");
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document("0"));
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNATURE_URL, "");
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED, false);
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_DOC_ID, "0");
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_DOC_REFERENCE, db.collection(Constant.FIRE_COLLECTION_ICF).document("0"));
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_SIGNATURE_URL, "");
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_SIGNED, false);
 
         SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT_SIMPLE, Locale.US);
         Date date = (Date)sdf.parse("1990-01-01");
-        userAdverseEventsData.put(Constant.FIRE_COLUMN_SIGNED_DATE, new Timestamp(date.getTime()));
+        userAdverseEventsData.put(Constant.FIRE_ICF_COLUMN_SIGNED_DATE, new Timestamp(date.getTime()));
 
         db.collection(Constant.FIRE_COLLECTION_USERS).document(userId)
                 .collection(Constant.FIRE_COLLECTION_ICF_HISTORY).document("0")

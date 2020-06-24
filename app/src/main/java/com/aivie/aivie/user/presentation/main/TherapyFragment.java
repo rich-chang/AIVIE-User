@@ -79,7 +79,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         adverseEventTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
         TextView eventTimeTitle = new TextView(getContext());
-        eventTimeTitle.setText("Reported");
+        eventTimeTitle.setText("HappendAt");
         eventTimeTitle.setTextSize(16);
         eventTimeTitle.setTextColor(Integer.parseInt("000000", 16)+0xFF000000);
         eventTimeTitle.setPadding(0, 8, 0, 8);
@@ -184,6 +184,7 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.imageViewAdverseEvent:
             case R.id.textViewAdverseEvent:
+            case R.id.ll_AdverseEvent:
                 Intent intent = new Intent(getContext(), AdverseEventActivity.class);
                 startActivity(intent);
                 break;
