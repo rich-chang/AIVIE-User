@@ -2,6 +2,7 @@ package com.aivie.aivie.user.presentation.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
 import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
+import com.aivie.aivie.user.presentation.therapy.PatientReportActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -51,8 +53,12 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
 
         View view = getView();
         if (view != null) {
+            view.findViewById(R.id.ll_AdverseEvent).setOnClickListener(this);
             view.findViewById(R.id.imageViewAdverseEvent).setOnClickListener(this);
             view.findViewById(R.id.textViewAdverseEvent).setOnClickListener(this);
+            view.findViewById(R.id.ll_PatientReport).setOnClickListener(this);
+            view.findViewById(R.id.imageViewPatientReport).setOnClickListener(this);
+            view.findViewById(R.id.textViewPatientReport).setOnClickListener(this);
         }
     }
 
@@ -182,11 +188,15 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         switch (view.getId()) {
+            case R.id.ll_AdverseEvent:
             case R.id.imageViewAdverseEvent:
             case R.id.textViewAdverseEvent:
-            case R.id.ll_AdverseEvent:
-                Intent intent = new Intent(getContext(), AdverseEventActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getContext(), AdverseEventActivity.class));
+                break;
+            case R.id.ll_PatientReport:
+            case R.id.imageViewPatientReport:
+            case R.id.textViewPatientReport:
+                startActivity(new Intent(getContext(), PatientReportActivity.class));
                 break;
         }
     }
