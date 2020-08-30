@@ -27,9 +27,10 @@ public class PatientReportActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()) {
             case R.id.ll_LabReport:
             case R.id.ll_ImageReport:
-            case R.id.ll_ECG:
-            case R.id.ll_ePRO:
                 startActivity(new Intent(this, ImageGalleryActivity.class));
+                break;
+            case R.id.ll_ePRO:
+                startActivity(new Intent(this, QuestionnaireActivity.class));
                 break;
         }
     }
