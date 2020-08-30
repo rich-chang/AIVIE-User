@@ -95,7 +95,8 @@ public class QuestionnaireActivity extends AppCompatActivity implements View.OnC
         // Placeholder
         Toast.makeText(this, "Result saved!", Toast.LENGTH_SHORT).show();
 
-        startActivity(new Intent(this, PatientReportActivity.class));
+        //startActivity(new Intent(this, PatientReportActivity.class));
+        finish();
     }
 
     void initQuestionnaire() {
