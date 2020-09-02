@@ -20,6 +20,7 @@ import com.aivie.aivie.user.R;
 import com.aivie.aivie.user.data.sqlite.AdverseEventDBHelper;
 import com.aivie.aivie.user.presentation.setting.SettingActivity;
 import com.aivie.aivie.user.presentation.therapy.AdverseEventActivity;
+import com.aivie.aivie.user.presentation.therapy.ConcomitEventActivity;
 import com.aivie.aivie.user.presentation.therapy.PatientReportActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -59,6 +60,9 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
             view.findViewById(R.id.ll_PatientReport).setOnClickListener(this);
             view.findViewById(R.id.imageViewPatientReport).setOnClickListener(this);
             view.findViewById(R.id.textViewPatientReport).setOnClickListener(this);
+            view.findViewById(R.id.ll_Concomitant).setOnClickListener(this);
+            view.findViewById(R.id.imageViewConcomit).setOnClickListener(this);
+            view.findViewById(R.id.textViewConcomit).setOnClickListener(this);
         }
     }
 
@@ -197,6 +201,11 @@ public class TherapyFragment extends Fragment implements View.OnClickListener {
             case R.id.imageViewPatientReport:
             case R.id.textViewPatientReport:
                 startActivity(new Intent(getContext(), PatientReportActivity.class));
+                break;
+            case R.id.ll_Concomitant:
+            case R.id.imageViewConcomit:
+            case R.id.textViewConcomit:
+                startActivity(new Intent(getContext(), ConcomitEventActivity.class));
                 break;
         }
     }

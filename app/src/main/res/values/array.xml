@@ -11,4 +11,11 @@
         <item>Gain Weight</item>
         <item>Sedation</item>
     </string-array>
+
+    <string-array name="concomit_events">
+        <item>Vitamin B</item>
+        <item>Vitamin C</item>
+        <item>Vitamin D</item>
+        <item>Lutein</item>
+    </string-array>
 </resources>
